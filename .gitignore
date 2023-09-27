@@ -1,0 +1,14 @@
+# Ignorar archivos .pyc (archivos compilados de Python)
+*.pyc
+*.sqlite3
+__pycache__/
+
+# Ignorar el directorio de entorno virtual
+venv/
+
+# Ignorar el archivo de configuración local
+settings.py
+
+# Editores e IDEs
+.idea/
+.vscode/
