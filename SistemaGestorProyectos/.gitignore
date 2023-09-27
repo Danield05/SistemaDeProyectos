@@ -1,8 +1,0 @@
-# Ignorar archivos .pyc (archivos compilados de Python)
-*.pyc
-
-# Ignorar el directorio de entorno virtual
-venv/
-
-# Ignorar el archivo de configuración local
-settings.py

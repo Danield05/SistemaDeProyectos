@@ -8,6 +8,8 @@ venv/
 
 # Ignorar el archivo de configuración local
 settings.py
+.env
+
 
 # Editores e IDEs
 .idea/
