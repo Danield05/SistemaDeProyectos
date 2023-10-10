@@ -9,6 +9,8 @@ venv/
 # Ignorar el archivo de configuración local
 settings.py
 .env
+SistemaGestorProyectos/settings.py
+
 
 
 # Editores e IDEs
