@@ -32,3 +32,4 @@ venv/
 # Archivos temporales
 *.swp
 .DS_Store
+script.sql
