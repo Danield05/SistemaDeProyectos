@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'SistemaGestorProyectos.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sistema_gestor_de_proyectos',
+        'USER': 'usuario_too',
+        'PASSWORD': 'too115',
+        'HOST': 'localhost',
+        'PORT': 3306,
     }
 }
 
