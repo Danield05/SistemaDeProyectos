@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'login',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'SistemaGestorProyectos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,6 +68,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'SistemaGestorProyectos.wsgi.application'
 
 
@@ -75,8 +77,12 @@ WSGI_APPLICATION = 'SistemaGestorProyectos.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME':'SistemaGestorProyectos',
+        'USER': 'root',
+        'PASSWORD': '244958',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -111,6 +117,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_URL = 'signin'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

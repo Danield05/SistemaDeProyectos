@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Sistema Gestor de Proyectos{% endblock %}</title>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{%url 'home'%}">Inicio</a></li>
+                <li><a href="{% url 'signup' %}">Registrarse</a></li>
+                <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
