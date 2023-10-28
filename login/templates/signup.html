@@ -1,11 +1,27 @@
-
-{% extends 'base.html' %}
+<head>
+    <title>Registro de usuario</title>
+</head>
 
 {% block content %}
-    <h2>Registrarse</h2>
-    <form method="post">
+    <form action="/signup/" method="post">
+        <h2>Registrarse usuario</h2>
+        {{error}}
         {% csrf_token %}
-        {{ form.as_p }}
+        <div>
+            <label for="username">Nombre de usuario:</label>
+            <input type="text" name="username" id="username" value="{{username}}">
+        </div>
+        <div>
+            <label for="email">Correo electrónico:</label>
+            <input type="email" name="email" id="email" value="{{email}}">
+        <div>
+            <label for="password1">Contraseña:</label>
+            <input type="password" name="password1" id="password1">
+        </div>
+        <div>
+            <label for="password2">Confirmar contraseña:</label>
+            <input type="password" name="password2" id="password2">
+        </div>
         <button type="submit">Registrarse</button>
     </form>
 {% endblock %}
