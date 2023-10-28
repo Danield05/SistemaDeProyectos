@@ -49,22 +49,31 @@ def signout(request):
 
 
 def signin(request):
-    if request.method == 'GET':
-        return render(request, 'signin.html', {
-            'form': AuthenticationForm()
-        })
-    else:
-        user = authenticate(
-            request, username=request.POST['username'],
-            password=request.POST['password'])
+    if request.method == 'POST':
+        username_or_email = request.POST['username_or_email']
+        password = request.POST['password']
+        user = None
+        # Intenta autenticar al usuario primero por correo electrónico
+        try:
+            user = User.objects.get(email=username_or_email)
+            user = authenticate(request, username=user.username, password=password)
+        except User.DoesNotExist:
+            pass
         if user is None:
+            # Si no se encuentra por correo electrónico, intenta autenticar por nombre de usuario
+            user = authenticate(request, username=username_or_email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
             return render(request, 'signin.html', {
                 'form': AuthenticationForm(),
                 'error': 'Usuario y/o contraseña incorrectos'
             })
-        else:
-            login(request, user)
-            return redirect('home')
+
+    return render(request, 'signin.html', {
+        'form': AuthenticationForm()
+    })
         
 
     
