@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Crear Proyecto</h1><br>
+    <a href="{% url 'gestionar_proyecto' %}" class="btn btn-secondary">Cancelar</a>
+    <form action="{% url 'crear_proyecto' %}" method="post">
+        {% csrf_token %}
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" required><br>
+        <label for="objetivo">Objetivo del proyecto</label>
+        <input type="text" name="objetivo" id="objetivo" required><br>
+        <label for="prioridad">Prioridad</label>
+        <select name="prioridad" id="prioridad" required>
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Baja">Baja</option>
+        </select><br>
+        <label for="fecha_inicio">Fecha Inicio</label>
+        <input type="date" name="fecha_inicio" id="fecha_inicio" required><br>
+        <label for="fecha_fin">Fecha Fin</label>
+        <input type="date" name="fecha_fin" id="fecha_fin" required><br>
+        <label for="presupuesto">Presupuesto</label>
+        <input type="number" name="presupuesto" id="presupuesto" min="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" required><br>
+        <button type="submit">Crear</button>
+    </form>
+    
+
+{% endblock %}

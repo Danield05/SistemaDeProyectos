@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Gestion: </h1>
+<a href="{% url 'crear_proyecto' %}" class="btn btn-primary">Crear Proyecto</a>
+<h2>Proyectos</h2>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Nombre del proyecto</th>
+            <th>Objetivo</th>
+            <th>Prioridad</th>
+            <th>Fecha de inicio</th>
+            <th>Fecha de fin</th>
+            <th>Estado</th>
+            <th>Aprobado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for proyecto in proyectos %}
+        <tr>
+            <td>{{ proyecto.nombre }}</td>
+            <td>{{ proyecto.objetivo }}</td>
+            <td>{{ proyecto.prioridad }}</td>
+            <td>{{ proyecto.fecha_inicio }}</td>
+            <td>{{ proyecto.fecha_fin }}</td>
+            <td>{{ proyecto.estado }}</td>
+            {% if proyecto.aprobado %}
+            <td>
+                Aprobado
+            </td>
+            {% endif %}
+            {% if not proyecto.aprobado %}
+            <td>
+                No aprobado
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

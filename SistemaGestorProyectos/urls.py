@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from login import views as login_views
+from gestionarProyecto import views as gestionarProyecto_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",include('login.urls')),
+    path('gestionar_proyecto/', gestionarProyecto_views.gestionar, name='gestionar_proyecto'),
+    path('gestionar_proyecto/crear_proyecto/', gestionarProyecto_views.crearProyecto, name='crear_proyecto'),
 ]
