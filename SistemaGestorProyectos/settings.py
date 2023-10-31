@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login',
+    #2fa video del viejo
     'django_otp',
-    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_static', # .
+    'django_otp.plugins.otp_totp',   # .
+    'two_factor',
 ]
 
 MIDDLEWARE = [
@@ -48,8 +51,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-
-    'django_otp.middleware.OTPMiddleware',
+    'django_otp.middleware.OTPMiddleware', #
 
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -124,7 +126,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOGIN_URL = 'signin'
+#LOGIN_URL = 'signin'
+LOGIN_URL = 'two_factor:login'
+LOGIN_REDIRECT_URL ='two_factor:setup'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

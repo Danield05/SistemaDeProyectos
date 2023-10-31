@@ -45,7 +45,7 @@ def signup(request):
 @login_required()
 def signout(request):
     logout(request)
-    return redirect('home')
+    return redirect('/account/login')
 
 
 def signin(request):

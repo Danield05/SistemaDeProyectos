@@ -15,24 +15,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import path,include
 from login import views as login_views
 
-from django.contrib.auth.models import User
-from django_otp.admin import OTPAdminSite
-from django_otp.plugins.otp_totp.models import TOTPDevice
-from django_otp.plugins.otp_totp.admin import TOTPDeviceAdmin
+#from django.contrib.auth.models import User
+#from django_otp.admin import OTPAdminSite
+#from django_otp.plugins.otp_totp.models import TOTPDevice
+#from django_otp.plugins.otp_totp.admin import TOTPDeviceAdmin
 
 
 
-class OTPAdmin(OTPAdminSite):
-   pass
+#class OTPAdmin(OTPAdminSite):
+#   pass
 
-admin_site = OTPAdmin(name='OTPAdmin')
-admin_site.register(User)
-admin_site.register(TOTPDevice, TOTPDeviceAdmin)
+#admin_site = OTPAdmin(name='OTPAdmin')
+#admin_site.register(User)
+#admin_site.register(TOTPDevice, TOTPDeviceAdmin)
 
 urlpatterns = [
-    path('admin/', admin_site.urls),
+    path('admin/', admin.site.urls),
     path("",include('login.urls')),
+    
 ]
