@@ -27,4 +27,6 @@ urlpatterns = [
     path('gestionar_proyecto/crear_proyecto/', gestionarProyecto_views.crearProyecto, name='crear_proyecto'),
     path('listaTarea/', administrarProyecto_views.listaTarea, name='listaTarea'),
     path('listaTarea/crearTarea/', administrarProyecto_views.crearTarea, name='crearTarea'),
+    path('listaTarea/editarTarea/<int:id>/', administrarProyecto_views.editarTarea, name='editarTarea'),
+    path('listaTarea/eliminarTarea/<int:id>/', administrarProyecto_views.eliminarTarea, name='eliminarTarea'),
 ]

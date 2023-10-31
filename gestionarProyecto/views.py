@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ProyectoForm
 from .models import Proyecto
 from django.contrib.auth.models import User
-# Create your views here.
 
 def gestionar(request):
     proyectos = Proyecto.objects.all()
@@ -34,3 +33,25 @@ def crearProyecto(request):
         'usuario': usuario,
         'form': form
     })
+
+def editarProyecto(request, proyecto_id):
+    proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
+    if request.method == 'POST':
+        form = ProyectoForm(request.POST, instance=proyecto)
+        if form.is_valid():
+            proyecto = form.save(commit=False)
+            proyecto.nombre = form.cleaned_data['nombre']
+            proyecto.objetivo = form.cleaned_data['objetivo']
+            proyecto.prioridad = form.cleaned_data['prioridad']
+            proyecto.fecha_inicio = form.cleaned_data['fecha_inicio']
+            proyecto.fecha_fin = form.cleaned_data['fecha_fin']
+            proyecto.presupuesto = form.cleaned_data['presupuesto']
+            proyecto.encargadoProyecto = form.cleaned_data['encargadoProyecto']
+            proyecto.save()
+            proyecto.encargado = User.objects.get(username=proyecto.encargadoProyecto)
+            proyecto.save()
+            return redirect('gestionar_proyecto')
+    else:
+        form = ProyectoForm(instance=proyecto)
+    return render(request, 'editarProyecto.html', {'form': form})
+    

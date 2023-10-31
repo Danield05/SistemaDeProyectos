@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import FormTarea 
 from .models import Tarea
 from django.contrib.auth.models import User
+from django.urls import reverse
 # Create your views here.
 
 def listaTarea(request):
@@ -22,5 +23,26 @@ def crearTarea(request):
 
         nuevaTarea.save()
         return redirect('listaTarea')
+      
+
+def editarTarea(request, id):
+    tarea = Tarea.objects.get(id=id)
+    usuario = User.objects.all()
     
+    if request.method == 'POST':
+        form = FormTarea(request.POST, instance=tarea)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('listaTarea'))
     
+    # Si la solicitud no es un POST o el formulario no es válido, renderiza la página de edición nuevamente
+    return render(request, 'editarTarea.html', {
+        'form': FormTarea(instance=tarea),
+        'usuario': usuario
+    })
+    
+def eliminarTarea(request, id):
+    tarea = Tarea.objects.get(id=id)
+    tarea.delete()   
+    return redirect(to='listaTarea') 
+
