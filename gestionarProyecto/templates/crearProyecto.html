@@ -20,6 +20,12 @@
         <input type="date" name="fecha_fin" id="fecha_fin" required><br>
         <label for="presupuesto">Presupuesto</label>
         <input type="number" name="presupuesto" id="presupuesto" min="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" required><br>
+        <label for ="encargadoProyecto">Encargado</label>
+        <select name="encargadoProyecto" id="encargadoProyecto" >
+            {% for usuario in usuario %}
+                <option value="{{usuario.username}}">{{usuario.username}}</option>
+            {% endfor %}
+        </select><br> 
         <button type="submit">Crear</button>
     </form>
     

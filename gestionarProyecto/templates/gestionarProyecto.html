@@ -12,6 +12,7 @@
             <th>Fecha de inicio</th>
             <th>Fecha de fin</th>
             <th>Estado</th>
+            <th>Encargado</th>
             <th>Aprobado</th>
         </tr>
     </thead>
@@ -24,6 +25,7 @@
             <td>{{ proyecto.fecha_inicio }}</td>
             <td>{{ proyecto.fecha_fin }}</td>
             <td>{{ proyecto.estado }}</td>
+            <td>{{proyecto.encargadoProyecto}}</td>
             {% if proyecto.aprobado %}
             <td>
                 Aprobado

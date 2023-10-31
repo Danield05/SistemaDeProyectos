@@ -18,10 +18,13 @@ from django.contrib import admin
 from django.urls import path,include
 from login import views as login_views
 from gestionarProyecto import views as gestionarProyecto_views
+from administrarProyecto import views as administrarProyecto_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",include('login.urls')),
     path('gestionar_proyecto/', gestionarProyecto_views.gestionar, name='gestionar_proyecto'),
     path('gestionar_proyecto/crear_proyecto/', gestionarProyecto_views.crearProyecto, name='crear_proyecto'),
+    path('listaTarea/', administrarProyecto_views.listaTarea, name='listaTarea'),
+    path('listaTarea/crearTarea/', administrarProyecto_views.crearTarea, name='crearTarea'),
 ]
