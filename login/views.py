@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.views.generic import View, UpdateView
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth import authenticate, login as auth_login
@@ -18,7 +18,30 @@ from django.core.mail import EmailMessage
 from django_otp import match_token
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
-#from .models import CustomUser 
+
+
+def create_group_roles(dato):
+    if dato =='0':
+            rol= Group.objects.get(name='Administrador')
+    elif dato == '1':  
+            rol= Group.objects.get(name='Empleado Formulador de proyectos')
+    elif dato=='2':
+            rol= Group.objects.get(name='Supervisor')
+    else:
+            rol= Group.objects.get(name='Inversor')
+    return rol
+
+def create_employee(request):
+    # Create a User
+    user = User.objects.create_user(
+        username=request.POST['username'],
+        email=request.POST['email'],
+        password=request.POST['password1'],
+        first_name=request.POST['first_name'],
+        last_name=request.POST['last_name'],
+    )
+    
+    return  user
 
 
 @login_required(login_url='signin')
@@ -54,17 +77,11 @@ def signup(request):
                             return device
 
                 if request.method == 'POST':
-                    
-                    
-                    user = User.objects.create_user(
 
-                        username   = request.POST['username'],
-                        email      = request.POST['email'],
-                        password   = request.POST['password1'],  
-                        first_name = request.POST['first_name'],
-                        last_name  = request.POST['last_name'],
-                        #rol      = request.POST['rol'],
-                        )
+                    
+                    user = create_employee(request)
+                    group = create_group_roles(request.POST['rol'])   
+                    user.groups.add(group)
                     user.save()
 
                     device = get_user_totp_device(user)
@@ -85,6 +102,8 @@ def signup(request):
                 )
                 email.content_subtype = "html"
                 email.send()
+
+                
                 #login(request, user)
                 return redirect('home')
             except IntegrityError:
