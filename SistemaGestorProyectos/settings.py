@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-^@_=cu2q#e*b7(vk=_!3w_pubvh82gho9v2)c$l3er$9*crd25
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = ['*']
+#Modelo de usuario personalizado
+#AUTH_USER_MODEL = 'login.CustomUser'
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django_otp',
     'django_otp.plugins.otp_static', # .
     'django_otp.plugins.otp_totp',   # .
-    'two_factor',
+    #'two_factor',
 ]
 
 MIDDLEWARE = [
@@ -126,9 +126,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-#LOGIN_URL = 'signin'
-LOGIN_URL = 'two_factor:login'
-LOGIN_REDIRECT_URL ='two_factor:setup'
+LOGIN_URL = 'signin'
+#LOGIN_URL = 'two_factor:login'
+#LOGIN_REDIRECT_URL ='two_factor:setup'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -140,3 +140,20 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#EMAIL_USE_TLS = True
+#EMAIL_PORT = 587
+#EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+#EMAIL_HOST_USER = '5d4b1c63a44d55'
+#EMAIL_HOST_PASSWORD = '767ea7dee903df'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+#camperitos correo
+
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'camperitos.sv@gmail.com'
+EMAIL_HOST_PASSWORD = 'nahtkdgoeztsjqgm'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

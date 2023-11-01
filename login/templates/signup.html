@@ -8,12 +8,29 @@
         {{error}}
         {% csrf_token %}
         <div>
+            <label for="first_name">Nombres</label>
+            <input type="text" name="first_name" id="first_name" value="{{name}}">
+        </div>
+        <div>
+            <label for="last_name">Apellidos</label>
+            <input type="text" name="last_name" id="last_name"  value="{{last_name}}">
+        </div>
+        <div>
             <label for="username">Nombre de usuario</label>
             <input type="text" name="username" id="username" value="{{username}}">
         </div>
         <div>
             <label for="email">Correo electrónico</label>
             <input type="email" name="email" id="email" value="{{email}}">
+        </div>
+        <div>
+            <label for="rol">Rol</label>
+            <select name="rol" id="rol">
+                <option value="1">Formulador de Proyectos</option>
+                <option value="2" >Supervisor</option>
+                <option value="3">Invesor</option>
+            </select> 
+        </div>   
         <div>
             <label for="password1">Contraseña</label>
             <input type="password" name="password1" id="password1">
