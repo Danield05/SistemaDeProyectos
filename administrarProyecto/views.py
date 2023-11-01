@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from .forms import FormTarea 
-from .models import Tarea
+from .forms import FormTarea , FormRecurso
+from .models import Tarea, Recurso
 from django.contrib.auth.models import User
 from django.urls import reverse
+from gestionarProyecto.models import Proyecto
 # Create your views here.
 
 def listaTarea(request):
@@ -23,7 +24,6 @@ def crearTarea(request):
 
         nuevaTarea.save()
         return redirect('listaTarea')
-      
 
 def editarTarea(request, id):
     tarea = Tarea.objects.get(id=id)
@@ -46,3 +46,33 @@ def eliminarTarea(request, id):
     tarea.delete()   
     return redirect(to='listaTarea') 
 
+def listaRecurso(request):
+    recurso = Recurso.objects.all()
+    return render(request, 'listaRecurso.html', {'recurso': recurso})
+
+def agregarRecurso(request):
+    if request.method == 'GET':
+        return render(request,'agregarRecurso.html', {
+            'form': FormRecurso
+        })
+    else:
+        form = FormRecurso(request.POST)
+        nuevoRecurso = form.save(commit=False)
+        nuevoRecurso.save()
+        return redirect('listaRecurso')
+    
+def editarRecurso(request, id):
+    recurso = Recurso.objects.get(id=id)
+    if request.method == 'POST':
+        form = FormRecurso(request.POST, instance=recurso)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('listaRecurso'))
+    return render(request, 'editarRecurso.html', {
+        'form': FormRecurso(instance=recurso)
+    }) 
+    
+def eliminarRecurso(request, id):
+    recurso = Recurso.objects.get(id=id)
+    recurso.delete()   
+    return redirect(to='listaRecurso')       

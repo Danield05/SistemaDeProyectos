@@ -1,5 +1,6 @@
 from django.forms import ModelForm 
 from .models import Tarea
+from .models import Recurso
 from django import forms
 from django.contrib.auth.models import User
 
@@ -26,3 +27,15 @@ class FormTarea(ModelForm):
     class Meta:
         model = Tarea
         fields = ['nombre', 'descripcion', 'fecha_inicio', 'fecha_fin', 'estado', 'encargado']
+      
+class FormRecurso(ModelForm):
+    nombre = forms.CharField(max_length=50, required=True, label='Nombre')
+    descripcion = forms.CharField(max_length=200, required=True, label='Descripción')
+    disponibilidad = forms.BooleanField(initial=True, required=False, label='Disponibilidad')
+    cantidad = forms.IntegerField(required=True, label='Cantidad')
+
+    class Meta:
+        model = Recurso
+        fields = ['nombre', 'descripcion', 'disponibilidad', 'cantidad']
+      
+        

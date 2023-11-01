@@ -7,36 +7,18 @@
     <thead>
         <tr>
             <th>Nombre del proyecto</th>
-            <th>Objetivo</th>
-            <th>Prioridad</th>
-            <th>Fecha de inicio</th>
-            <th>Fecha de fin</th>
-            <th>Estado</th>
-            <th>Encargado</th>
-            <th>Aprobado</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
         </tr>
     </thead>
     <tbody>
         {% for proyecto in proyectos %}
         <tr>
-            <td>{{ proyecto.nombre }}</td>
-            <td>{{ proyecto.objetivo }}</td>
-            <td>{{ proyecto.prioridad }}</td>
-            <td>{{ proyecto.fecha_inicio }}</td>
-            <td>{{ proyecto.fecha_fin }}</td>
-            <td>{{ proyecto.estado }}</td>
-            <td>{{proyecto.encargadoProyecto}}</td>
-            {% if proyecto.aprobado %}
-            <td>
-                Aprobado
-            </td>
-            {% endif %}
-            {% if not proyecto.aprobado %}
-            <td>
-                No aprobado
-            </td>
-            {% endif %}
+            <td><a href="{% url 'proyecto' proyecto.id %}">{{ proyecto.nombre }}</a></td>
+            <td><a href="{% url 'editarProyecto' proyecto.id %}">Editar</a></td>
+            <td><a href="{% url 'eliminarProyecto' proyecto.id %}">Eliminar</a></td>
         </tr>
+        
         {% endfor %}
     </tbody>
 </table>

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Agregar Recurso</h1>
+<a href="{% url 'listaRecurso' %}" class="btn btn-secondary">Cancelar</a>
+    <form action="{% url 'agregarRecurso' %}" method="post">
+        {% csrf_token %}
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" required><br>
+        <label for="descripcion">Descripcion</label>
+        <input type="text" name="descripcion" id="descripcion" required><br>
+        <label for="disponibilidad">Disponibilidad</label>
+        <input type="checkbox" name="disponibilidad" id="disponibilidad" ><br>
+        <label for="cantidad">Cantidad</label>
+        <input type="number" name="cantidad" id="cantidad" min="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" required><br>
+        <button type="submit">Crear</button>
+
+{% endblock %}
