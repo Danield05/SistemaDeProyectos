@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Gestion: </h1>
+<a href="{% url 'crear_proyecto' %}" class="btn btn-primary">Crear Proyecto</a>
+<h2>Proyectos</h2>
+<table border=1>
+    <thead>
+        <tr>
+            <th>Nombre del proyecto</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for proyecto in proyectos %}
+        <tr>
+            <td><a href="{% url 'proyecto' proyecto.id %}">{{ proyecto.nombre }}</a></td>
+            <td><a href="{% url 'editarProyecto' proyecto.id %}">Editar</a></td>
+            <td><a href="{% url 'eliminarProyecto' proyecto.id %}">Eliminar</a></td>
+        </tr>
+        
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

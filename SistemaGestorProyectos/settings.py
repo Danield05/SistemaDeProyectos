@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login',
+    'administracionProyecto',
 ]
 
 MIDDLEWARE = [
@@ -78,11 +79,11 @@ WSGI_APPLICATION = 'SistemaGestorProyectos.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'SistemaGestorProyectos',
-        'USER': 'root',
-        'PASSWORD': '244958',
+        'NAME': 'sistema_gestor_de_proyectos',
+        'USER': 'usuario_too',
+        'PASSWORD': 'too115',
         'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': 3306,
     }
 }
 

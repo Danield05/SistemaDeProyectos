@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Recursos</h2>
+<a href="{% url 'agregarRecurso' %}" class="btn btn-primary">Agregar Recurso</a> 
+<table border ="2">
+    <thead>
+        <tr>
+            <th>Nombre del recurso</th>
+            <th>Descripcion</th>
+            <th>Disponibilidad</th>
+            <th>Cantidad</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for recurso in recurso %}
+        <tr>
+            <td>{{ recurso.nombre }}</td>
+            <td>{{ recurso.descripcion }}</td>
+            <td>
+                {% if recurso.disponibilidad %}
+                Disponible
+                {% else %}
+                No disponible
+                {% endif %}
+            </td>
+            <td>{{ recurso.cantidad }}</td>
+            <td>
+                <a href="{% url 'editarRecurso' recurso.id %}">Editar</a> 
+                <a href="{% url 'eliminarRecurso' recurso.id %}">Eliminar</a> 
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
