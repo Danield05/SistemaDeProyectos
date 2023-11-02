@@ -2,7 +2,7 @@
 {% block content %}
 
 <h2>Recursos</h2>
-<a href="{% url 'agregarRecurso' %}" class="btn btn-primary">Agregar Recurso</a> 
+<a href="{% url 'agregarRecurso' id %}" class="btn btn-primary">Agregar Recurso</a> 
 <table border ="2">
     <thead>
         <tr>
@@ -10,6 +10,7 @@
             <th>Descripcion</th>
             <th>Disponibilidad</th>
             <th>Cantidad</th>
+            <th>Proyecto</th>
             <th>Opciones</th>
         </tr>
     </thead>
@@ -26,6 +27,7 @@
                 {% endif %}
             </td>
             <td>{{ recurso.cantidad }}</td>
+            <td>{{ recurso.proyecto }}</td>
             <td>
                 <a href="{% url 'editarRecurso' recurso.id %}">Editar</a> 
                 <a href="{% url 'eliminarRecurso' recurso.id %}">Eliminar</a> 

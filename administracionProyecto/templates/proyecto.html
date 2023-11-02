@@ -9,7 +9,7 @@
 <p>Fecha de Inicio: {{proyecto.fecha_inicio}}<p>
 <p>Fecha de Finalizacion: {{proyecto.fecha_fin}}<p>
 <p>Estado del proyecto: {{proyecto.estado}}<p>
-<p>Presupuesto: {{proyecto.presupuesto}}<p>
+<p>Presupuesto(USD): ${{proyecto.presupuesto}}<p>
 <p>Encargado: {{proyecto.encargado}}<p>
     {% if not proyecto.aprobado %}
 <form method="POST" action="{% url 'aprobarProyecto' proyecto.id %}">
@@ -19,4 +19,49 @@
 {% endif %}
 <a href="{% url 'listaTarea' id %}">Ver Tareas</a>
 <a href="{% url 'listaRecurso' id %}">Ver Recursos</a>
+<h2>Calendario del proyecto {{proyecto.nombre}}</h2>
+<div id="calendar"></div>
 {% endblock %}
+{% block extra_js %}
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dc4641f860664c6e824b093274f50291"}'></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          initialDate: '2023-11-01',
+          locale: 'es',
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+          events: [
+            {% for tareas in tareas %}
+            {
+              title: "{{tareas.nombre}} - {{tareas.estado}}",
+              start: "{{tareas.fecha_inicio | date:'Y-m-d'}}",
+              end: "{{tareas.fecha_fin | date:'Y-m-d'}}",
+              {% if tareas.estado == "Pendiente" %}
+              backgroundColor: '#E76D7E', //red
+              textColor: '#fff' //white
+              {% endif %}
+              {% if tareas.estado == "Progreso" %}
+              backgroundColor: '#83D0F7', //red
+              textColor: '#fff' //white
+              {% endif %}
+              {% if tareas.estado == "Completada" %}
+              backgroundColor: '#B3E17A', //red
+              textColor: '#fff' //white
+              {% endif %}
+            },
+            {% endfor %}
+          ]
+        });
+
+        calendar.render();
+      });
+</script>
+{% endblock extra_js %}

@@ -2,7 +2,7 @@
 {% block content %}
 
 <h2>Tareas </h2>
-<a href="{% url 'crearTarea' %}" class="btn btn-primary">Crear Tarea</a> 
+<a href="{% url 'crearTarea' id %}" class="btn btn-primary">Crear Tarea</a> 
 <table border ="2">
     <thead>
         <tr>
@@ -12,6 +12,7 @@
             <th>Fecha de inicio</th>
             <th>Fecha de fin</th>
             <th>Encargado</th>
+            <th>Proyecto</th>
             <th>Opciones</th>
         </tr>
     </thead>
@@ -24,6 +25,7 @@
             <td>{{ tarea.fecha_inicio }}</td>
             <td>{{ tarea.fecha_fin }}</td>
             <td>{{ tarea.encargado }}</td>
+            <td>{{ tarea.proyecto }}</td>
             <td>
                 <a href="{% url 'editarTarea' tarea.id %}">Editar</a> 
                 <a href="{% url 'eliminarTarea' tarea.id %}">Eliminar</a> 

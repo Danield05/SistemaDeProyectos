@@ -2,7 +2,7 @@
 {% block content %}
 <h1>Agregar Recurso</h1>
 <a href="{% url 'listaRecurso' %}" class="btn btn-secondary">Cancelar</a>
-    <form action="{% url 'agregarRecurso' %}" method="post">
+    <form action="{% url 'agregarRecurso' id %}" method="post">
         {% csrf_token %}
         <label for="nombre">Nombre</label>
         <input type="text" name="nombre" id="nombre" required><br>
