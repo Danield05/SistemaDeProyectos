@@ -1,0 +1,27 @@
+{% block content %}
+    <h1>Cambiar Contraseña</h1>
+    <form method="post" action="{% url 'recuperar' %}">
+        {{error}}
+        {% csrf_token %}
+        <div>
+            <label for="user">Usuario:</label>
+            <input type="user" name="user" id="user" required>
+        </div>
+        <div>
+            <label for="password1">Nueva Contraseña:</label>
+            <input type="password" name="password1" id="password1" required>
+        </div>
+        <div>
+            <label for="password2">Confirmar nueva contraseña:</label>
+            <input type="password" name="password2" id="password2" required>
+        </div>
+        <div>
+            <label for="otp_token">Token 2FA:</label>
+            <input type="text" name="otp_token" id="otp_token" >
+        </div>
+         
+        <button type="submit">Cambiar Contraseña</button>
+        <a href="{% url 'home' %}">Ir a la página de inicio</a>
+
+    </form>
+{% endblock %}

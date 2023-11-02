@@ -1,0 +1,10 @@
+ /* Cambia el color del texto y el fondo al pasar el ratón sobre las opciones del menú */
+ #menuPanel a:hover {
+    color: #000 !important; /* Cambia el color del texto */
+    background-color: #fff !important; /* Cambia el color de fondo */
+}
+/* Cambia el color del texto y el fondo al pasar el ratón sobre las opciones del menú de usuario */
+.userDropdown a:hover {
+    color: #fff !important; /* Cambia el color del texto */
+    background-color: #000 !important; /* Cambia el color de fondo */
+}

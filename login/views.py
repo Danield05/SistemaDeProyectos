@@ -50,7 +50,7 @@ def home(request):
 
 #signin
 
-def get_user_totp_device(self,user, confirmed=None):
+def get_user_totp_device(user, confirmed=None): #eliminado un ,self
         devices = devices_for_user(user, confirmed=confirmed)
         for device in devices:
             if isinstance(device, TOTPDevice):
@@ -94,7 +94,6 @@ def signup(request):
                     'user': user,
                     'qr_code': device.config_url,
                     'contraseña': request.POST['password1'],
-                    'rol' : request.POST['rol'],
                 })
                 to_email = request.POST['email']
                 email = EmailMessage(
@@ -166,7 +165,58 @@ def signin(request):
         
 
 
-  
+def recuperar(request):
+     if request.method == 'POST':
+        user1 =  request.POST['user']
+        password1 = request.POST['password1']
+        otp_token = request.POST['otp_token']
+        user = None
+        if request.POST['password1'] == request.POST['password2']:
+            user = User.objects.get(username=user1)
+            if user is not None:
+                 device_match = match_token(user=user, token=otp_token)
+                 device = get_user_totp_device(user)             
+                 device = user.totpdevice_set.get(confirmed=True)
+
+                 if device_match is not None:
+                      user.set_password(password1)
+                      user.save()                    
+                    
+                      mail_subject = 'Cambio de Contraseña'
+                      message = render_to_string('account_activation_email.html', {
+                            'user': user,
+                            'qr_code': device.config_url,
+                            'contraseña': request.POST['password1'],
+                        })
+                      to_email = user.email
+                      email = EmailMessage(
+                            mail_subject, message, to=[to_email]
+                        )
+                      email.content_subtype = "html"
+                      email.send()
 
 
+                      return redirect('signin')
+                 else:
+                       return  render(request, 'signin.html', {
+                        'form': UserCreationForm(),
+                        'error': 'Token verficacion a 2 pasos incorrecto'})
+        else:
+                return render(request, 'signin.html', {
+                'form': UserCreationForm(),
+                'error': 'Usuario y/o contraseña incorrectos'
+            })
+     
+     else: 
+        return render(request, 'recuperar.html', {
+            'form': UserCreationForm()
+    })
 
+def profile(request):
+    if request.method == 'POST':
+        print("") 
+    else:
+        return render(request, 'profile.html', {
+            'form': UserCreationForm()
+
+    })

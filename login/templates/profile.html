@@ -1,0 +1,49 @@
+{% block content %}
+    <h1>Datos Personales</h1>
+    <form method="post"   action="{% url 'perfil' %}">
+        {{error}}
+        {% csrf_token %}
+        <div>
+            <label for="username">Usuario:</label>
+            <input type="username" name="username" id="user" >
+        </div>
+        <div>
+            <label for="rol/puesto">Rol/Puesto:</label>
+            <input type="text" name="rol/puesto" id="rol/puesto" >
+        </div>
+        <div>
+            <label for="carnet">Carnet Empleado:</label>
+            <input type="text" name="carnet" id="carnet">
+        </div>
+        <div>
+            <label for="dui">DUI:</label>
+            <input type="text" name="dui" id="dui">
+        </div>
+        <div>
+            <label for="nit">NIT:</label>
+            <input type="text" name="nit" id="nit">
+        </div>
+        <div>
+            <label for="genero">Genero:</label>
+            <input type="text" name="genero" id="genero">
+        </div>
+        <div>
+            <label for="pais">Pais:</label>
+            <input type="text" name="pais" id="pais">
+        </div>
+        <div>
+            <label for="departamento">Departamento:</label>
+            <input type="text" name="departamento" id="departamento">
+        </div>
+        <div>
+            <label for="municipio">Municipio:</label>
+            <input type="text" name="municipi" id="municipio">
+        </div>
+
+        <p>Para guardar cambios necesita ingresar su Token 2FA</p>
+        <div>
+            <label for="otp_token"> Token 2FA:</label>
+            <input type="text" name="otp_token" id="otp_token" >
+        </div>
+        <button type="submit">Guardar Cambios</button>
+{% endblock %}

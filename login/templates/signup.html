@@ -1,44 +1,83 @@
+{% load static %}
+
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="{% static 'img/logo.svg' %}">
     <title>Registro de usuario</title>
 </head>
 
-{% block content %}
-    <form action="{% url 'signup' %}" method="post">
-        <h2>Registrarse usuario</h2>
-        {{error}}
-        {% csrf_token %}
-        <div>
-            <label for="first_name">Nombres</label>
-            <input type="text" name="first_name" id="first_name" value="{{name}}">
+<body>
+    
+    <section class="bg-white dark:bg-gray-900">
+        <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
+            <!-- Parte derecha: Registro de usuario -->
+            <main class="lg:col-span-7 xl:col-span-6 bg-gray-900">
+                <div class="min-h-screen flex items-center justify-center">
+                    <form action="{% url 'signup' %}" method="post" class="w-full max-w-md p-4 bg-gray-800 text-white rounded shadow-lg">
+                        <h2 class="text-2xl font-bold mb-4 text-center">Registrar usuario</h2>
+                        {{error}}
+                        {% csrf_token %}
+                        <div  class="mb-4">
+                            <label for="first_name" class="text-sm font-medium text-gray-300">Nombres</label>
+                            <input type="text" name="first_name" id="first_name" value="{{name}}" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
+                        </div>
+                        <div class="mb-4">
+                            <label for="last_name" class="text-sm font-medium text-gray-300">Apellidos</label>
+                            <input type="text" name="last_name" id="last_name"  value="{{last_name}}" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
+                        </div>
+                        <div>
+                            <label for "username" class="text-sm font-medium text-gray-300">Nombre de usuario</label>
+                            <input type="text" name="username" id="username" value="{{username}}" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="text-sm font-medium text-gray-300">Correo electrónico</label>
+                            <input type="email" name="email" id="email" value="{{email}}" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
+                        </div>
+                        <div class="mb-4">
+                            <label for="rol" class="text-sm font-medium text-gray-300">Rol</label>
+                            <select name="rol" id="rol" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
+                                <option value="Default">-- Selecciona un rol---</option>
+                                <option value="1">Formulador de Proyectos</option>
+                                <option value="2" >Supervisor</option>
+                                <option value="3">Inversor</option>
+                            </select>
+                        </div>
+                        <div  class="mb-4">
+                            <label for="password1" class="text-sm font-medium text-gray-300">Contraseña</label>
+                            <input type="password" name="password1" id="password1" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
+                        </div>
+                        <div class="mb-4">
+                            <label for="password2" class="text-sm font-medium text-gray-300">Confirmar contraseña</label>
+                            <input type="password" name="password2" id="password2" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
+                        </div>
+                        <div class="flex justify-center">
+                            <button type="submit" class="w-2/3 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-opacity-50">Registrar</button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+
+            <section class="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
+                
+                <img alt="Night"
+                    src="https://cdn.discordapp.com/attachments/1154915178895388712/1169734006644953170/tinywow_Screenshot_1_39107663.png?ex=65567aaf&is=654405af&hm=ebdd2088bf72b125b47589ba688ceb2a362f0cab813211dff41463b4ac858770&"
+                    class="absolute inset-0 h-full object-cover opacity-80" />
+            
+                <div class="hidden lg:relative lg:block lg:p-12">
+                    <h2 class="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+                        Sistema Gestor de Proyectos <i class="fa-brands fa-python"></i>
+                    </h2>
+                    <p class="mt-4 leading-relaxed  text-white sm:text-2xl md:text-3xl">
+                        Camperitos S.A de C.V <i class="fa-solid fa-laptop-code"></i>
+                    </p>
+                    <br>
+                    <a href="{% url 'home' %}" class="text-white hover:text-blue-700">
+                        <i class="fas fa-arrow-left"></i> Regresar a inicio
+                    </a>
+                </div>
+            </section>
+            
         </div>
-        <div>
-            <label for="last_name">Apellidos</label>
-            <input type="text" name="last_name" id="last_name"  value="{{last_name}}">
-        </div>
-        <div>
-            <label for="username">Nombre de usuario</label>
-            <input type="text" name="username" id="username" value="{{username}}">
-        </div>
-        <div>
-            <label for="email">Correo electrónico</label>
-            <input type="email" name="email" id="email" value="{{email}}">
-        </div>
-        <div>
-            <label for="rol">Rol</label>
-            <select name="rol" id="rol">
-                <option value="1">Formulador de Proyectos</option>
-                <option value="2" >Supervisor</option>
-                <option value="3">Invesor</option>
-            </select> 
-        </div>   
-        <div>
-            <label for="password1">Contraseña</label>
-            <input type="password" name="password1" id="password1">
-        </div>
-        <div>
-            <label for="password2">Confirmar contraseña</label>
-            <input type="password" name="password2" id="password2">
-        </div>
-        <button type="submit">Registrarse</button>
-    </form>
-{% endblock %}
+    </section>
+</body>
