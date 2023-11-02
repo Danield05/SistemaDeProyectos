@@ -37,12 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'login',
-    #2fa video del viejo
+    #2fa 
     'django_otp',
     'django_otp.plugins.otp_static', # .
     'django_otp.plugins.otp_totp',   # .
-    #'two_factor',
+  
+     #Otras aplicaciones
+    'login',
+    'administracionProyecto',
 ]
 
 MIDDLEWARE = [

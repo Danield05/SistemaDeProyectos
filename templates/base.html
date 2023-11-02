@@ -16,13 +16,16 @@
         <nav>
             <span>{{ user.username }}</span>
             <ul>
-                <a href="{%url 'home'%}">Inicio</a>
-                 {%if user.is_superuser%}
-                   <li> <a href="{% url 'signup' %}">Registrarse</a></li>
-                {%endif%}
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+                <li><a href="{%url 'home'%}">Inicio</a></li>
+                {%if user.is_superuser%}
+                <li><a href="{% url 'signup' %}">Registrarse</a></li>
                 {% endif %}
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'gestionar_proyecto' %}">Proyectos</a></li>
+            {% endif %}
             </ul>
         </nav>
     </header>

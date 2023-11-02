@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Tareas </h2>
+<a href="{% url 'crearTarea' %}" class="btn btn-primary">Crear Tarea</a> 
+<table border ="2">
+    <thead>
+        <tr>
+            <th>Nombre de la tarea</th>
+            <th>Descripcion</th>
+            <th>Estado</th>
+            <th>Fecha de inicio</th>
+            <th>Fecha de fin</th>
+            <th>Encargado</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tarea in tarea %}
+        <tr>
+            <td>{{ tarea.nombre }}</td>
+            <td>{{ tarea.descripcion }}</td>
+            <td>{{ tarea.estado }}</td>
+            <td>{{ tarea.fecha_inicio }}</td>
+            <td>{{ tarea.fecha_fin }}</td>
+            <td>{{ tarea.encargado }}</td>
+            <td>
+                <a href="{% url 'editarTarea' tarea.id %}">Editar</a> 
+                <a href="{% url 'eliminarTarea' tarea.id %}">Eliminar</a> 
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Crear tarea</h1>
+<a href="{% url 'listaTarea' %}" class="btn btn-secondary">Cancelar</a>
+    <form action="{% url 'crearTarea' %}" method="post">
+        {% csrf_token %}
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" required><br>
+        <label for="descripcion">Descripcion</label>
+        <input type="text" name="descripcion" id="descripcion" required><br>
+        <label for="estado">Estado</label>
+        <select name="estado" id="estado" required>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Progreso">Progreso</option>
+            <option value="Completada">Completada</option>
+        </select><br>
+        <label for="fecha_inicio">Fecha Inicio</label>
+        <input type="date" name="fecha_inicio" id="fecha_inicio" required><br>
+        <label for="fecha_fin">Fecha Fin</label>
+        <input type="date" name="fecha_fin" id="fecha_fin" required><br>
+        <label for="encargado">Encargado</label>
+        <select name="encargado" id="encargado" required> <!--le falta el required-->
+            <option value="">seleccione un encargado</option>
+            {% for usuario in usuario %}
+                <option value="{{ usuario.username }}">{{ usuario.username }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Crear</button>
+
+{% endblock %}

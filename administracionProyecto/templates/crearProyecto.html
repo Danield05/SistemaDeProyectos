@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Crear Proyecto</h1><br>
+    <a href="{% url 'gestionar_proyecto' %}" class="btn btn-secondary">Cancelar</a>
+    <form action="{% url 'crear_proyecto' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Crear</button>
+    </form>
+    
+
+{% endblock %}
