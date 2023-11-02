@@ -7,23 +7,26 @@ from django.urls import reverse
 # Create your views here.
 
 def listaTarea(request, id):
-    tarea = Tarea.objects.all()
-    return render(request, 'listaTarea.html',{'tarea': tarea})
+    proyecto = Proyecto.objects.get(id=id)
+    tarea = Tarea.objects.filter(proyecto=proyecto)
+    return render(request, 'listaTarea.html',{'id':id,'tarea': tarea})
 
-def crearTarea(request):
+def crearTarea(request, id):
     if request.method == 'GET':
         usuario = User.objects.all()
         return render(request,'crearTarea.html', {
             'usuario': usuario,
+            'id': id, #agregue esto para que se pueda redireccionar a la lista de tareas del proyecto
             'form': FormTarea
         })
     else:
         form = FormTarea(request.POST)
-        nuevaTarea = form.save(commit=False)
-        nuevaTarea.usuario = User.objects.get(username=nuevaTarea.encargado)
-
-        nuevaTarea.save()
-        return redirect('listaTarea')
+        if form.is_valid():
+            nuevaTarea = form.save(commit=False)
+            nuevaTarea.usuario = User.objects.get(username=nuevaTarea.encargado)
+            nuevaTarea.proyecto = Proyecto.objects.get(id=id)
+            nuevaTarea.save()
+            return redirect('listaTarea' , id=id)
 
 def editarTarea(request, id):
     tarea = Tarea.objects.get(id=id)
@@ -33,33 +36,38 @@ def editarTarea(request, id):
         form = FormTarea(request.POST, instance=tarea)
         if form.is_valid():
             form.save()
-            return redirect(reverse('listaTarea'))
+            return redirect('listaTarea', id=tarea.proyecto.id)
     
     # Si la solicitud no es un POST o el formulario no es válido, renderiza la página de edición nuevamente
     return render(request, 'editarTarea.html', {
         'form': FormTarea(instance=tarea),
-        'usuario': usuario
+        'usuario': usuario,
+        'id': id,
     })
     
 def eliminarTarea(request, id):
     tarea = Tarea.objects.get(id=id)
     tarea.delete()   
-    return redirect(to='listaTarea') 
+    return redirect('listaTarea', id=tarea.proyecto.id) 
 
 def listaRecurso(request, id):
-    recurso = Recurso.objects.all()
-    return render(request, 'listaRecurso.html', {'recurso': recurso})
+    proyecto = Proyecto.objects.get(id=id)
+    recurso = Recurso.objects.filter(proyecto=proyecto)
+    return render(request, 'listaRecurso.html', {'recurso': recurso,'id':id})
 
-def agregarRecurso(request):
+def agregarRecurso(request, id):
     if request.method == 'GET':
         return render(request,'agregarRecurso.html', {
-            'form': FormRecurso
+            'id':id,
+            'form': FormRecurso,
         })
     else:
         form = FormRecurso(request.POST)
-        nuevoRecurso = form.save(commit=False)
-        nuevoRecurso.save()
-        return redirect('listaRecurso')
+        if form.is_valid():
+            nuevoRecurso = form.save(commit=False)
+            nuevoRecurso.proyecto = Proyecto.objects.get(id=id)
+            nuevoRecurso.save()
+            return redirect('listaRecurso', id=id)
     
 def editarRecurso(request, id):
     recurso = Recurso.objects.get(id=id)
@@ -67,7 +75,7 @@ def editarRecurso(request, id):
         form = FormRecurso(request.POST, instance=recurso)
         if form.is_valid():
             form.save()
-            return redirect(reverse('listaRecurso'))
+            return redirect('listaRecurso', id=recurso.proyecto.id)
     return render(request, 'editarRecurso.html', {
         'form': FormRecurso(instance=recurso)
     }) 
@@ -75,7 +83,7 @@ def editarRecurso(request, id):
 def eliminarRecurso(request, id):
     recurso = Recurso.objects.get(id=id)
     recurso.delete()   
-    return redirect(to='listaRecurso') 
+    return redirect('listaRecurso', id=recurso.proyecto.id) 
 
 def gestionar(request):
     proyectos = Proyecto.objects.all()
@@ -114,7 +122,7 @@ def proyecto(request, id):
     proyecto = Proyecto.objects.get(id=id)
     if request.method == 'GET':
         return render(request, 'proyecto.html', {'proyecto': proyecto, 'id': id})
-    return redirect(reverse('listaTarea' , args=[proyecto.id]))
+    return redirect(reverse('listaTarea' or 'listaRecurso' , args=[proyecto.id]))
 
 def eliminarProyecto(request, id):
     proyecto = Proyecto.objects.get(id=id)
@@ -129,3 +137,4 @@ def aprobarProyecto(request, id):
         proyecto.save()
         return redirect(reverse('proyecto', args=[proyecto.id]))
     return render(request, 'proyecto.html', {'proyecto': proyecto})
+

@@ -16,7 +16,7 @@ class Proyecto(models.Model):
     encargado = models.ForeignKey(User, null=True, blank=False, on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.nombre + ' ' + self.estado
+        return self.nombre
 
 class Tarea(models.Model):
     nombre = models.CharField(max_length=50, blank=False, null=False)

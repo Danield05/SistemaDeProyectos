@@ -9,7 +9,7 @@
 <p>Fecha de Inicio: {{proyecto.fecha_inicio}}<p>
 <p>Fecha de Finalizacion: {{proyecto.fecha_fin}}<p>
 <p>Estado del proyecto: {{proyecto.estado}}<p>
-<p>Presupuesto: {{proyecto.presupuesto}}<p>
+<p>Presupuesto(USD): ${{proyecto.presupuesto}}<p>
 <p>Encargado: {{proyecto.encargado}}<p>
     {% if not proyecto.aprobado %}
 <form method="POST" action="{% url 'aprobarProyecto' proyecto.id %}">
