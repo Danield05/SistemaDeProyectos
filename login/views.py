@@ -142,14 +142,18 @@ def signin(request):
         if user is not None:
             
             device_match = match_token(user=user, token=otp_token)
-            if device_match is not None:
-                auth_login(request, user)
-                return redirect('home')
-            else:
-                return  render(request, 'signin.html', {
-                'form': AuthenticationForm(),
-                'error': 'Token verficacion a 2 pasos incorrecto'
+            if not user.is_superuser:
+                    if device_match is not None:
+                        auth_login(request, user)
+                        return redirect('home')
+                    else:
+                        return  render(request, 'signin.html', {
+                        'form': AuthenticationForm(),
+                        'error': 'Token verficacion a 2 pasos incorrecto'
             })
+            else:
+                    auth_login(request, user)
+                    return redirect('home')
         else:
             return render(request, 'signin.html', {
                 'form': AuthenticationForm(),
