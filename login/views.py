@@ -39,6 +39,8 @@ def create_employee(request):
         password=request.POST['password1'],
         first_name=request.POST['first_name'],
         last_name=request.POST['last_name'],
+        #dui = "",
+
     )
     
     return  user
@@ -214,7 +216,8 @@ def recuperar(request):
 
 def profile(request):
     if request.method == 'POST':
-        print("") 
+        user1 =  request.user
+        return redirect('home')
     else:
         return render(request, 'profile.html', {
             'form': UserCreationForm()

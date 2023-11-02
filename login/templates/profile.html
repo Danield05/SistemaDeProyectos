@@ -5,11 +5,11 @@
         {% csrf_token %}
         <div>
             <label for="username">Usuario:</label>
-            <input type="username" name="username" id="user" >
+            <input type="username" name="username" id="user" value="{{user.username}}">
         </div>
         <div>
             <label for="rol/puesto">Rol/Puesto:</label>
-            <input type="text" name="rol/puesto" id="rol/puesto" >
+            <input type="text" name="rol/puesto" id="rol/puesto" value="{{user.group}}" >
         </div>
         <div>
             <label for="carnet">Carnet Empleado:</label>
@@ -17,7 +17,7 @@
         </div>
         <div>
             <label for="dui">DUI:</label>
-            <input type="text" name="dui" id="dui">
+            <input type="text" name="dui" id="dui" >
         </div>
         <div>
             <label for="nit">NIT:</label>
@@ -46,4 +46,5 @@
             <input type="text" name="otp_token" id="otp_token" >
         </div>
         <button type="submit">Guardar Cambios</button>
+    </form>
 {% endblock %}

@@ -1,27 +1,68 @@
-{% block content %}
-    <h1>Cambiar Contraseña</h1>
-    <form method="post" action="{% url 'recuperar' %}">
-        {{error}}
-        {% csrf_token %}
-        <div>
-            <label for="user">Usuario:</label>
-            <input type="user" name="user" id="user" required>
-        </div>
-        <div>
-            <label for="password1">Nueva Contraseña:</label>
-            <input type="password" name="password1" id="password1" required>
-        </div>
-        <div>
-            <label for="password2">Confirmar nueva contraseña:</label>
-            <input type="password" name="password2" id="password2" required>
-        </div>
-        <div>
-            <label for="otp_token">Token 2FA:</label>
-            <input type="text" name="otp_token" id="otp_token" >
-        </div>
-         
-        <button type="submit">Cambiar Contraseña</button>
-        <a href="{% url 'home' %}">Ir a la página de inicio</a>
+{% load static %}
 
-    </form>
-{% endblock %}
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="icon" type="image/svg+xml" href="{% static 'img/logo.svg' %}" />
+  <title>Cambiar contraseña</title>
+</head>
+
+<body>
+    <section class="bg-white dark:bg-gray-900">
+        <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
+            <section class="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
+                <img alt="Night"
+                    src="https://cdn.discordapp.com/attachments/1154915178895388712/1169734006644953170/tinywow_Screenshot_1_39107663.png?ex=65567aaf&is=654405af&hm=ebdd2088bf72b125b47589ba688ceb2a362f0cab813211dff41463b4ac858770&"
+                    class="absolute inset-0 h-full w-full object-cover opacity-80" />
+
+                <div class="hidden lg:relative lg:block lg:p-12">
+
+                    <h2 class="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+                        Sistema Gestor de Proyectos <i class="fa-brands fa-python"></i>
+                    </h2>
+                    <p class="mt-4 leading-relaxed  text-white sm:text-2xl md:text-3xl">
+                        Camperitos S.A de C.V <i class="fa-solid fa-laptop-code"></i>
+                    </p>
+                </div>
+           </section>
+           {% comment %} Parte derecha {% endcomment %}
+           <main class="lg:col-span-7 xl:col-span-6 bg-gray-900">
+                <div class="min-h-screen flex items-center justify-center">
+                    <div class="w-full text-white  h-full flex flex-col items-center justify-center">
+                        <h1 class="text-3xl font-bold text-center mb-4">Cambiar Contraseña</h1>
+                        <form method="post" action="{% url 'recuperar' %}" class="w-full max-w-md mx-auto">
+                            {{ error }}
+                            {% csrf_token %}
+                            <div class="mb-4">
+                            <label for="user" class="block text-gray-300 text-sm font-bold mb-2">Usuario:</label>
+                            <input type="user" name="user" id="user" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600" />
+                            </div>
+                            <div class="mb-4">
+                            <label for="password1" class="block text-gray-300 text-sm font-bold mb-2">Nueva Contraseña:</label>
+                            <input type="password" name="password1" id="password1" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600" />
+                            </div>
+                            <div class="mb-4">
+                            <label for="password2" class="block text-gray-300 text-sm font-bold mb-2">Confirmar nueva contraseña:</label>
+                            <input type="password" name="password2" id="password2" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600" />
+                            </div>
+                            <div class="mb-4">
+                            <label for="otp_token" class="block text-gray-300 text-sm font-bold mb-2">Token 2FA:</label>
+                            <input type="text" name="otp_token" id="otp_token" class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600" />
+                            </div>
+
+                            <div class="text-center">
+                                <div class="flex items-center justify-center space-x-4"> <!-- Contenedor flexbox -->
+                                    <button type="submit" class="w-1/2 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-opacity-50">Cambiar Contraseña</button>
+                                    <a href="#"  class="w-1/2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50" id="custom-alert-button" data-signin-url="{% url 'signin' %}">Cancelar</a>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="{% static 'js/recuperar.js' %}"></script>
+</body>
