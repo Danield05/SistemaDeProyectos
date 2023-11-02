@@ -3,9 +3,10 @@ from .forms import FormTarea , FormRecurso, ProyectoForm
 from .models import Tarea, Recurso, Proyecto
 from django.contrib.auth.models import User
 from django.urls import reverse
+
 # Create your views here.
 
-def listaTarea(request):
+def listaTarea(request, id):
     tarea = Tarea.objects.all()
     return render(request, 'listaTarea.html',{'tarea': tarea})
 
@@ -45,7 +46,7 @@ def eliminarTarea(request, id):
     tarea.delete()   
     return redirect(to='listaTarea') 
 
-def listaRecurso(request):
+def listaRecurso(request, id):
     recurso = Recurso.objects.all()
     return render(request, 'listaRecurso.html', {'recurso': recurso})
 
@@ -108,9 +109,12 @@ def editarProyecto(request, id):
         form = ProyectoForm(instance=proyecto)
     return render(request, 'editarProyecto.html', {'form': form})
     
+
 def proyecto(request, id):
     proyecto = Proyecto.objects.get(id=id)
-    return render(request, 'proyecto.html', {'proyecto': proyecto})
+    if request.method == 'GET':
+        return render(request, 'proyecto.html', {'proyecto': proyecto, 'id': id})
+    return redirect(reverse('listaTarea' , args=[proyecto.id]))
 
 def eliminarProyecto(request, id):
     proyecto = Proyecto.objects.get(id=id)

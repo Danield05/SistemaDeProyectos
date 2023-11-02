@@ -17,6 +17,6 @@
     <input type="submit" value="Aprobar Proyecto">
 </form>
 {% endif %}
-
-
+<a href="{% url 'listaTarea' id %}">Ver Tareas</a>
+<a href="{% url 'listaRecurso' id %}">Ver Recursos</a>
 {% endblock %}
