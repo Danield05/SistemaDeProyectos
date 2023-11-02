@@ -19,4 +19,38 @@
 {% endif %}
 <a href="{% url 'listaTarea' id %}">Ver Tareas</a>
 <a href="{% url 'listaRecurso' id %}">Ver Recursos</a>
+<div id="calendar"></div>
 {% endblock %}
+{% block extra_js %}
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dc4641f860664c6e824b093274f50291"}'></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          initialDate: '2023-11-01',
+          locale: 'es',
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+          events: [
+            {% for tareas in tareas %}
+            {
+              title: "{{tareas.nombre}}",
+              start: "{{tareas.fecha_inicio | date:'Y-m-d'}}",
+              end: "{{tareas.fecha_fin | date:'Y-m-d'}}",
+              backgroundColor: '#f56954', //red
+              textColor: '#fff' //white
+            },
+            {% endfor %}
+          ]
+        });
+
+        calendar.render();
+      });
+</script>
+{% endblock extra_js %}
