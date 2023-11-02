@@ -120,9 +120,15 @@ def editarProyecto(request, id):
 
 def proyecto(request, id):
     proyecto = Proyecto.objects.get(id=id)
+    tareas = Tarea.objects.filter(proyecto=proyecto)
     if request.method == 'GET':
-        return render(request, 'proyecto.html', {'proyecto': proyecto, 'id': id})
-    return redirect(reverse('listaTarea' or 'listaRecurso' , args=[proyecto.id]))
+        return render(request, 'proyecto.html', {
+            'tareas': tareas,
+            'proyecto': proyecto,
+            'id': id,
+            })
+    return redirect(reverse('listaTarea' , args=[proyecto.id]))
+
 
 def eliminarProyecto(request, id):
     proyecto = Proyecto.objects.get(id=id)

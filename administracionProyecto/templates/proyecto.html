@@ -19,6 +19,7 @@
 {% endif %}
 <a href="{% url 'listaTarea' id %}">Ver Tareas</a>
 <a href="{% url 'listaRecurso' id %}">Ver Recursos</a>
+<h2>Calendario del proyecto {{proyecto.nombre}}</h2>
 <div id="calendar"></div>
 {% endblock %}
 {% block extra_js %}
@@ -40,11 +41,21 @@
           events: [
             {% for tareas in tareas %}
             {
-              title: "{{tareas.nombre}}",
+              title: "{{tareas.nombre}} - {{tareas.estado}}",
               start: "{{tareas.fecha_inicio | date:'Y-m-d'}}",
               end: "{{tareas.fecha_fin | date:'Y-m-d'}}",
-              backgroundColor: '#f56954', //red
+              {% if tareas.estado == "Pendiente" %}
+              backgroundColor: '#E76D7E', //red
               textColor: '#fff' //white
+              {% endif %}
+              {% if tareas.estado == "Progreso" %}
+              backgroundColor: '#83D0F7', //red
+              textColor: '#fff' //white
+              {% endif %}
+              {% if tareas.estado == "Completada" %}
+              backgroundColor: '#B3E17A', //red
+              textColor: '#fff' //white
+              {% endif %}
             },
             {% endfor %}
           ]
