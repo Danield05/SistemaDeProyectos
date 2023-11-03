@@ -2,7 +2,9 @@
 {% block content %}
 
 <h2>Tareas </h2>
+{% if not es_empleado_formulador_proyectos %}
 <a href="{% url 'crearTarea' id %}" class="btn btn-primary">Crear Tarea</a> 
+{% endif %}
 <a href="{% url 'proyecto' id %}" class="btn btn-primary">Volver</a>
 <table border ="2">
     <thead>
@@ -14,7 +16,9 @@
             <th>Fecha de fin</th>
             <th>Encargado</th>
             <th>Proyecto</th>
+            {% if not es_empleado_formulador_proyectos %}
             <th>Opciones</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -27,10 +31,12 @@
             <td>{{ tarea.fecha_fin }}</td>
             <td>{{ tarea.encargado }}</td>
             <td>{{ tarea.proyecto }}</td>
-            <td>
-                <a href="{% url 'editarTarea' tarea.id %}">Editar</a> 
-                <a href="{% url 'eliminarTarea' tarea.id %}">Eliminar</a> 
+            {% if not es_empleado_formulador_proyectos %}
+            <td>    
+                    <a href="{% url 'editarTarea' tarea.id %}">Editar</a> 
+                    <a href="{% url 'eliminarTarea' tarea.id %}">Eliminar</a> 
             </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

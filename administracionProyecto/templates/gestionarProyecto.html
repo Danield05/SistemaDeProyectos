@@ -1,22 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>Gestion: </h1>
+{% if not es_inversor %}
 <a href="{% url 'crear_proyecto' %}" class="btn btn-primary">Crear Proyecto</a>
+{% endif %}
+<!-- No se muestra nada para inversores -->
 <h2>Proyectos</h2>
 <table border=1>
     <thead>
         <tr>
             <th>Nombre del proyecto</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
+            {% if not es_inversor %}
+                <th>Editar</th>
+                <th>Eliminar</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
         {% for proyecto in proyectos %}
         <tr>
             <td><a href="{% url 'proyecto' proyecto.id %}">{{ proyecto.nombre }}</a></td>
+
+            {% if not  es_inversor %}
+            <!-- Los enlaces se muestran para otros tipos de usuarios -->
             <td><a href="{% url 'editarProyecto' proyecto.id %}">Editar</a></td>
             <td><a href="{% url 'eliminarProyecto' proyecto.id %}">Eliminar</a></td>
+            {% endif %}
+            <!-- No se muestra nada para inversores -->
+
         </tr>
         
         {% endfor %}

@@ -2,7 +2,9 @@
 {% block content %}
 
 <h2>Recursos</h2>
+{% if es_administrador %}
 <a href="{% url 'agregarRecurso' id %}" class="btn btn-primary">Agregar Recurso</a> 
+{% endif %}
 <a href="{% url 'proyecto' id %}" class="btn btn-primary">Volver</a>
 <table border ="2">
     <thead>
@@ -12,7 +14,9 @@
             <th>Disponibilidad</th>
             <th>Cantidad</th>
             <th>Proyecto</th>
+            {% if es_administrador %}
             <th>Opciones</th>
+            {% endif%}
         </tr>
     </thead>
     <tbody>
@@ -29,10 +33,12 @@
             </td>
             <td>{{ recurso.cantidad }}</td>
             <td>{{ recurso.proyecto }}</td>
+            {% if es_administrador %}
             <td>
                 <a href="{% url 'editarRecurso' recurso.id %}">Editar</a> 
-                <a href="{% url 'eliminarRecurso' recurso.id %}">Eliminar</a> 
+                <a href="{% url 'eliminarRecurso' recurso.id %}">Eliminar</a>     
             </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

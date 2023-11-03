@@ -45,7 +45,12 @@ formulador_requerido = user_passes_test(es_empleado_formulador_proyectos)
 def listaTarea(request, id):
     proyecto = Proyecto.objects.get(id=id)
     tarea = Tarea.objects.filter(proyecto=proyecto)
-    return render(request, 'listaTarea.html',{'id':id,'tarea': tarea})
+    return render(request, 'listaTarea.html',{
+        'id':id,
+        'tarea': tarea,
+        'es_empleado_formulador_proyectos': request.user.groups.filter(name="Empleado Formulador de proyectos").exists(),
+        'es_supervisor': request.user.groups.filter(name="Supervisor").exists(),
+    })
 
 #administrador y supervisor
 @login_required
@@ -100,7 +105,11 @@ def eliminarTarea(request, id):
 def listaRecurso(request, id):
     proyecto = Proyecto.objects.get(id=id)
     recurso = Recurso.objects.filter(proyecto=proyecto)
-    return render(request, 'listaRecurso.html', {'id':id,'recurso': recurso})
+    return render(request, 'listaRecurso.html', {
+        'id':id,
+        'recurso': recurso,
+        'es_administrador': request.user.groups.filter(name="Administrador").exists(),
+        })
 
 @login_required
 @administrador_requerido
@@ -141,7 +150,10 @@ def eliminarRecurso(request, id):
 @login_required
 def gestionar(request):
     proyectos = Proyecto.objects.all()
-    return render(request, 'gestionarProyecto.html', {'proyectos': proyectos})
+    return render(request, 'gestionarProyecto.html', {
+        'proyectos': proyectos,
+        'es_inversor': request.user.groups.filter(name="Inversor").exists(),
+    })
 
 
 @login_required
@@ -184,7 +196,9 @@ def proyecto(request, id):
             'tareas': tareas,
             'proyecto': proyecto,
             'id': id,
-            })
+            'es_administrador': request.user.groups.filter(name="Administrador").exists(),
+            'es_inversor': request.user.groups.filter(name="Inversor").exists(),
+        })
     return redirect(reverse('listaTarea' , args=[proyecto.id]))
 
 @login_required
@@ -212,7 +226,11 @@ def listaReporte(request, id):
     else:
         reportes = Reporte.objects.filter(proyecto=id)
     
-    return render(request, 'listaReporte.html',{'id':id,'reportes': reportes})
+    return render(request, 'listaReporte.html',{
+        'id':id,
+        'reportes': reportes,
+        'es_inversor': request.user.groups.filter(name="Inversor").exists(),
+    })
     
 @login_required
 def crearReporte(request, id):    

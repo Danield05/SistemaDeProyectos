@@ -11,7 +11,9 @@
             <th>Descripcion</th>
             <th>Tipo</th>
             <th>Proyecto</th>
+            {% if not es_inversor %}
             <th>Opciones</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -24,8 +26,10 @@
             </td>
             <td>{{ reporte.proyecto }}</td>
             <td>
+                {% if not es_inversor %}
                 <a href="{% url 'editarReporte' reporte.id %}">Editar</a> 
                 <a href="{% url 'eliminarReporte' reporte.id %}">Eliminar</a> 
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

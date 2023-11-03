@@ -11,14 +11,18 @@
 <p>Estado del proyecto: {{proyecto.estado}}<p>
 <p>Presupuesto(USD): ${{proyecto.presupuesto}}<p>
 <p>Encargado: {{proyecto.encargado}}<p>
+{% if es_administrador %}
     {% if not proyecto.aprobado %}
 <form method="POST" action="{% url 'aprobarProyecto' proyecto.id %}">
     {% csrf_token %}
     <input type="submit" value="Aprobar Proyecto">
 </form>
+    {% endif %}
 {% endif %}
+{% if not es_inversor %}
 <a href="{% url 'listaTarea' id %}">Ver Tareas</a>
 <a href="{% url 'listaRecurso' id %}">Ver Recursos</a>
+{% endif %}
 <a href="{% url 'listaReporte' id %}">Ver Reportes</a>
 <h2>Calendario del proyecto {{proyecto.nombre}}</h2>
 <div id="calendar"></div>
