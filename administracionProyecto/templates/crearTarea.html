@@ -22,7 +22,6 @@
                                     <option value="Pendiente">Pendiente</option>
                                     <option value="Progreso">Progreso</option>
                                     <option value="Completada">Completada</option>
-                            
                                 </select>
                             </div>
                             <div class="mb-4">
@@ -41,7 +40,6 @@
                                         <option value="{{ usuario.username }}">{{ usuario.username }}</option>
                                     {% endfor %}
                                 </select><br>
-
                             </div>
                             <div class="text-center">
                                 <div class="flex items-center justify-center space-x-4">
@@ -66,4 +64,23 @@
             </section>
         </div>
     </section>
+
+<script>
+    document.getElementById('custom-alert-button-c').addEventListener('click', function() {
+        const signinURL = this.getAttribute('data-signin-url-c');
+    
+        Swal.fire({
+            title: '¿Cancelar?',
+            text: '¿Estás seguro de que quieres cancelar agregar una tarea?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = signinURL;
+            }
+        });
+    });
+</script>
 {% endblock %}

@@ -1,9 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Editar Tarea</h1>
-<form action="" method="POST">
+<div class="form-container">
+    <h1>Editar Tarea</h1>
+    <form action="" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        <label for="id_nombre">Nombre:</label>
+        <input type="text" name="nombre" id="id_nombre" value="{{ tarea.nombre }}" required>
+        <label for="id_descripcion">Descripción:</label>
+        <input type="text" name="descripcion" id="id_descripcion" value="{{ tarea.descripcion }}" required>
+        <label for="id_estado">Estado:</label>
+        <select name="estado" id="id_estado" required>
+            <option value="Pendiente" {% if tarea.estado == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+            <option value="Progreso" {% if tarea.estado == 'Progreso' %}selected{% endif %}>Progreso</option>
+            <option value="Completada" {% if tarea.estado == 'Completada' %}selected{% endif %}>Completada</option>
+        </select>
+        
+        <label for="id_fecha_inicio">Fecha Inicio:</label>
+        <input type="date" name="fecha_inicio" id="id_fecha_inicio" value="{{ tarea.fecha_inicio|date:'Y-m-d' }}" required>
+        <label for="id_fecha_fin">Fecha Fin:</label>
+        <input type="date" name="fecha_fin" id="id_fecha_fin" value="{{ tarea.fecha_fin|date:'Y-m-d' }}" required>
+        <label for="id_encargado">Encargado:</label>
+        <select name="encargado" id="id_encargado" required>
+        <option value="">Seleccione un encargado</option>
+        {% for usuario in usuario %}
+                <option value="{{ usuario.username }}" {% if usuario.username == tarea.encargado %}selected{% endif %}>
+                {{ usuario.username }}
+                </option>
+        {% endfor %}
+        </select>
+
         <button type="submit">Editar</button>
-</form>
+    </form>
+</div>
 {% endblock %}

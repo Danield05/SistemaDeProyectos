@@ -1,8 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Editar</button>
-</form>
+<div class="form-container">
+    <h1>Editar Proyecto</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="id_nombre">Nombre del Proyecto:</label>
+        <input type="text" name="nombre" id="id_nombre" value="{{ proyecto.nombre }}" required>
+        <label for="id_objetivo">Objetivo:</label>
+        <input type="text" name="objetivo" id="id_objetivo" value="{{ proyecto.objetivo }}" required>
+        <label for="id_prioridad">Prioridad:</label>
+        <select name="prioridad" id="id_prioridad" required>
+            <option value="Alta" {% if proyecto.prioridad == 'Alta' %}selected{% endif %}>Alta</option>
+            <option value="Media" {% if proyecto.prioridad == 'Media' %}selected{% endif %}>Media</option>
+            <option value="Baja" {% if proyecto.prioridad == 'Baja' %}selected{% endif %}>Baja</option>
+        </select>
+        <label for="id_estado">Estado:</label>
+        <select name="estado" id="id_estado" required>
+            {% for choice in estado_choices %}
+                <option value="{{ choice.0 }}" {% if choice.0 == proyecto.estado %}selected{% endif %}>{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="id_fecha_inicio">Fecha de Inicio:</label>
+        <input type="date" name="fecha_inicio" id="id_fecha_inicio" value="{{ proyecto.fecha_inicio|date:'Y-m-d' }}" required>
+        <label for "id_fecha_fin">Fecha de Fin:</label>
+        <input type="date" name="fecha_fin" id="id_fecha_fin" value="{{ proyecto.fecha_fin|date:'Y-m-d' }}" required>
+        <label for="id_presupuesto">Presupuesto:</label>
+        <input type="number" name="presupuesto" id="id_presupuesto" value="{{ proyecto.presupuesto }}" step="0.01" required>
+        <button type="submit">Editar</button>
+    </form>
+</div>
 {% endblock %}

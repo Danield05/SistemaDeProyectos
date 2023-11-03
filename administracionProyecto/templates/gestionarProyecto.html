@@ -12,13 +12,13 @@
         </a>
         <br>
 
-        <table style="width: 50%; border-collapse: collapse; margin-top: 20px;">
+        <table style="width: 90%; border-collapse: collapse; margin-top: 20px;">
             <thead class="text-2xl font-bold">
                 <tr class="bg-gray-800 text-white">
                     <th class="bg-gray-800 p-2 border" colspan="3" >Proyectos</th>
                 </tr>
                 <tr class="bg-gray-800 text-white">
-                    <th class="border p-1">Nombre del proyecto</th>
+                    <th class="border p-1" style="width: 50%;">Nombre del proyecto</th>
                     <th class="border p-1" colspan="2">Opciones</th>
                     
                 </tr>
@@ -31,18 +31,48 @@
                     </td>
                     <td class="border p-1" colspan="2">
                         <div class="flex justify-between">
-                            <a href="{% url 'editarProyecto' proyecto.id %}" class="py-2 px-4 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">
+                            <a href="{% url 'editarProyecto' proyecto.id %}" class="py-2 px-4 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 24%; text-align: center; font-weight: bold;">
                                 Editar
                             </a>
-                            <a href="{% url 'eliminarProyecto' proyecto.id %}" class="py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50 " style="width: 48%; text-align: center; font-weight: bold;">
+                            <a href="#" class="w-1/2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50 flex items-center justify-center" style="width: 24%; text-align: center; font-weight: bold;" id="custom-alert-button-g" data-signin-url-g="{% url 'eliminarProyecto' proyecto.id %}">
                                 Eliminar
+                            </a>
+                            <a href="{% url 'listaRecurso' proyecto.id %}" class="py-2 px-4 bg-purple-500 text-white rounded-md hover:bg-purple-600 focus:outline-none focus:ring focus:ring-opacity-50 " style="width: 24%; text-align: center; font-weight: bold;">
+                                Recursos
+                            </a>
+                            <a href="{% url 'listaTarea' proyecto.id %}" class="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-opacity-50 " style="width: 24%; text-align: center; font-weight: bold;">
+                                Tareas
                             </a>
                         </div>
                     </td>   
                 </tr>
                 
                 {% endfor %}
+
             </tbody>
         </table>
     </div>
+
+    <script>
+        document.querySelectorAll('[id^="custom-alert-button-g"]').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const projectID = this.getAttribute('data-signin-url-g');
+                Swal.fire({
+                    title: '¿Eliminar?',
+                    text: '¿Estás seguro de que quieres eliminar este proyecto?',
+                    icon: 'warning',
+                    confirmButtonColor: '#60A5FA',
+                    cancelButtonColor: '#EF4444',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = projectID;
+                    }
+                });
+            });
+        });
+    </script>
+    
 {% endblock %}

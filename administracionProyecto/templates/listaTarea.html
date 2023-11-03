@@ -45,23 +45,24 @@
 </div>
 
 <script>
-    const customAlertButtonEl = document.getElementById('custom-alert-button-el');
-    const signinUrl = customAlertButtonEl.dataset.signinUrlEl;
-    customAlertButtonEl.addEventListener('click', () => {
-        Swal.fire({
-            title: '¿Estas seguro?',
-            text: "¡No podrás revertir esto!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#60A5FA',
-            cancelButtonColor: '#EF4444',
-            confirmButtonText: 'Si, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = signinUrl;
-            }
-        })
+    document.querySelectorAll('[id^="custom-alert-button-el"]').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const projectID = this.getAttribute('data-signin-url-el');
+            Swal.fire({
+                title: '¿Eliminar?',
+                text: '¿Estás seguro de que quieres eliminar esta Tarea?',
+                icon: 'warning',
+                confirmButtonColor: '#60A5FA',
+                cancelButtonColor: '#EF4444',
+                showCancelButton: true,
+                confirmButtonText: 'Si, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = projectID;
+                }
+            });
+        });
     });
 </script>
 {% endblock %}
