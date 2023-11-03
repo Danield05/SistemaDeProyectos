@@ -53,7 +53,7 @@ def eliminarTarea(request, id):
 def listaRecurso(request, id):
     proyecto = Proyecto.objects.get(id=id)
     recurso = Recurso.objects.filter(proyecto=proyecto)
-    return render(request, 'listaRecurso.html', {'recurso': recurso,'id':id})
+    return render(request, 'listaRecurso.html', {'id':id,'recurso': recurso})
 
 def agregarRecurso(request, id):
     if request.method == 'GET':
@@ -68,6 +68,7 @@ def agregarRecurso(request, id):
             nuevoRecurso.proyecto = Proyecto.objects.get(id=id)
             nuevoRecurso.save()
             return redirect('listaRecurso', id=id)
+    
     
 def editarRecurso(request, id):
     recurso = Recurso.objects.get(id=id)

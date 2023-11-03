@@ -3,12 +3,13 @@
 
 <h2>Reportes</h2>
 <a href="{% url 'crearReporte' id %}" class="btn btn-primary">Crear Reporte</a> 
+<a href="{% url 'proyecto' id %}" class="btn btn-primary">Volver</a>
 <table border ="2">
     <thead>
         <tr>
             <th>Titulo</th>
             <th>Descripcion</th>
-            <th>Importante</th>
+            <th>Tipo</th>
             <th>Proyecto</th>
             <th>Opciones</th>
         </tr>
@@ -19,11 +20,7 @@
             <td>{{ reporte.titulo }}</td>
             <td>{{ reporte.descripcion }}</td>
             <td>
-                {% if reporte.importante %}
-                <strong>Si lo es</strong>
-                {% else %}
-                <span>No lo es</span>
-                {% endif %}
+                {{ reporte.tipo }}
             </td>
             <td>{{ reporte.proyecto }}</td>
             <td>

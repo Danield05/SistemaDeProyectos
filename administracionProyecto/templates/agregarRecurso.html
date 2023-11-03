@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>Agregar Recurso</h1>
-<a href="{% url 'listaRecurso' %}" class="btn btn-secondary">Cancelar</a>
+<a href="{% url 'listaRecurso' id %}" class="btn btn-secondary">Cancelar</a>
     <form action="{% url 'agregarRecurso' id %}" method="post">
         {% csrf_token %}
         <label for="nombre">Nombre</label>

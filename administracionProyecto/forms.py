@@ -65,11 +65,15 @@ class ProyectoForm(forms.ModelForm):
         fields = ['nombre', 'objetivo', 'prioridad', 'fecha_inicio', 'fecha_fin', 'presupuesto', 'encargado']
         
 class FormReporte(ModelForm):
+    TIPO_CHOICES = (
+        ('general', 'Reporte General'),
+        ('financiero', 'Reporte Financiero'),
+    )
     titulo = forms.CharField(max_length=50, required=True, label='Titulo')
     descripcion = forms.CharField(max_length=500, required=True, label='Descripción')
-    importante = forms.BooleanField(initial=True, required=False, label='Importante')
+    tipo = forms.ChoiceField(choices=TIPO_CHOICES, required=True, label='Tipo')
 
     class Meta:
         model = Reporte
-        fields = ['titulo', 'descripcion', 'importante']
+        fields = ['titulo', 'descripcion', 'tipo']
               
