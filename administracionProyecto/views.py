@@ -86,6 +86,8 @@ def agregarRecurso(request, id):
             return redirect('listaRecurso', id=id)
     
     
+
+
 #editar recurso
 def editarRecurso(request, id):
     recurso = Recurso.objects.get(id=id)
@@ -108,6 +110,7 @@ def editarRecurso(request, id):
 
     return render(request, 'editarRecurso.html', {
         'recurso': recurso,
+        'id': id,
     })
 
     #eliminar recurso
@@ -130,6 +133,8 @@ def crearProyecto(request):
         # haz lo mismo para que los tipos de prioridad para los tipos de estado en una sola linea
         tipos_estados = ProyectoForm.ESTADO_CHOICES
         tipos_estados = [tipo[0] for tipo in tipos_estados]
+        encargado= User.objects.all()
+        
 
         return render(request,'crearProyecto.html', {
             'usuarios': usuarios,
@@ -137,6 +142,7 @@ def crearProyecto(request):
             'form': ProyectoForm,
             'tipos_prioridad': tipos_prioridad,
             'tipos_estados': tipos_estados,
+            'encargado': encargado,
             
         })
     else:
@@ -145,13 +151,14 @@ def crearProyecto(request):
         if form.is_valid():
             nuevoProyecto = form.save(commit=False)
             nuevoProyecto.estado =request.POST.get('estado')
+            nuevoProyecto.usuario = User.objects.get(username=nuevoProyecto.encargado)
             nuevoProyecto.save()
         return redirect('gestionar_proyecto') 
   
  # Editar proyecto
 def editarProyecto(request, id):
     proyecto = Proyecto.objects.get(id=id)
-
+    usuarios = User.objects.all()
     # Define las opciones de Estado manualmente
     estado_choices = [
         ('Pendiente', 'Pendiente'),
@@ -168,6 +175,8 @@ def editarProyecto(request, id):
         fecha_inicio = request.POST.get('fecha_inicio')
         fecha_fin = request.POST.get('fecha_fin')
         presupuesto = request.POST.get('presupuesto')
+        encargado = request.POST.get('id_encargado')
+        
 
         # Actualiza el proyecto con los nuevos datos
         proyecto.nombre = nombre
@@ -177,13 +186,16 @@ def editarProyecto(request, id):
         proyecto.fecha_inicio = fecha_inicio
         proyecto.fecha_fin = fecha_fin
         proyecto.presupuesto = presupuesto
+        proyecto.encargado = encargado
         proyecto.save()
 
         return redirect('gestionar_proyecto')
-
-    return render(request, 'editarProyecto.html', {
+    else:
+        print(proyecto.encargado)
+        return render(request, 'editarProyecto.html', {
         'proyecto': proyecto,
         'estado_choices': estado_choices,
+        'usuarios': usuarios,
         'id': id,
     })
 

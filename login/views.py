@@ -214,12 +214,50 @@ def recuperar(request):
             'form': UserCreationForm()
     })
 
-def profile(request):
+@login_required()
+def editProfile(request):
     if request.method == 'POST':
         user1 =  request.user
-        return redirect('home')
-    else:
-        return render(request, 'profile.html', {
-            'form': UserCreationForm()
+        otp_token = request.POST['otp_token']
 
-    })
+
+        device_match = match_token(user=user1, token=otp_token)
+        if device_match is not None:
+
+            user1.profile.dui = request.POST['dui']
+            user1.profile.nit = request.POST['nit']
+            user1.profile.pais = request.POST['pais']
+            genero = buscar_genero(request.POST['genero'])
+            if genero != "":
+                user1.profile.genero = genero
+            user1.profile.departamento = request.POST['departamento']
+            user1.save()        
+            user1.profile.save()
+        else:
+                return  render(request, 'editarPerfil.html', {
+            'form': UserCreationForm(),
+             'error': 'Token verficacion a 2 pasos incorrecto'})
+
+        
+        return redirect('perfil')
+    else:
+        return render(request, 'editarPerfil.html',{
+            'form': UserCreationForm(),
+             })
+    
+    
+@login_required()
+def profile(request):
+    return render(request, 'profile.html')
+
+
+def buscar_genero(dato):
+    if dato =='1':
+            gen= "Masculino"
+    elif dato == '2':  
+            gen= "Femenino"
+    elif dato=='3':
+            gen= "Otro"
+    else:
+            gen= ""
+    return gen
