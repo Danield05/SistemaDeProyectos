@@ -40,4 +40,9 @@ urlpatterns = [
     path('listaRecurso/agregarRecurso/<int:id>/', administracionProyecto_views.agregarRecurso, name = 'agregarRecurso'),
     path('listaRecurso/editarRecurso/<int:id>/', administracionProyecto_views.editarRecurso, name = 'editarRecurso'),
     path('listaRecurso/eliminarRecurso/<int:id>/', administracionProyecto_views.eliminarRecurso, name = 'eliminarRecurso'),
+    path('listaReporte/', administracionProyecto_views.listaReporte, name = 'listaReporte'),
+    path('listaReporte/<int:id>/', administracionProyecto_views.listaReporte, name = 'listaReporte'),
+    path('listaReporte/editarReporte/<int:id>/', administracionProyecto_views.editarReporte, name = 'editarReporte'),
+    path('listaReporte/eliminarReporte/<int:id>/', administracionProyecto_views.eliminarReporte, name = 'eliminarReporte'),
+    path('listaReporte/crearReporte/<int:id>/', administracionProyecto_views.crearReporte, name = 'crearReporte'),
 ]

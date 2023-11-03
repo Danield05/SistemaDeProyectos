@@ -40,3 +40,12 @@ class Recurso(models.Model):
     
     def __str__(self):
         return self.nombre
+    
+class Reporte(models.Model):
+    titulo = models.CharField(max_length=50, blank=False, null=False)
+    descripcion = models.CharField(max_length=500, blank=False, null=False)
+    importante =  models.BooleanField(default=False)
+    proyecto = models.ForeignKey(Proyecto, null=True, blank=True, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.titulo

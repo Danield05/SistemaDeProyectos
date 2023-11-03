@@ -2,6 +2,7 @@ from django.forms import ModelForm
 from .models import Tarea
 from .models import Recurso
 from .models import Proyecto 
+from .models import Reporte
 from django import forms
 from django.contrib.auth.models import User
 
@@ -62,3 +63,13 @@ class ProyectoForm(forms.ModelForm):
     class Meta:
         model = Proyecto
         fields = ['nombre', 'objetivo', 'prioridad', 'fecha_inicio', 'fecha_fin', 'presupuesto', 'encargado']
+        
+class FormReporte(ModelForm):
+    titulo = forms.CharField(max_length=50, required=True, label='Titulo')
+    descripcion = forms.CharField(max_length=500, required=True, label='Descripción')
+    importante = forms.BooleanField(initial=True, required=False, label='Importante')
+
+    class Meta:
+        model = Reporte
+        fields = ['titulo', 'descripcion', 'importante']
+              

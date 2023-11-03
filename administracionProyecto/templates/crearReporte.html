@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Crear Reporte</h1>
+<a href="{% url 'listaReporte' %}" class="btn btn-secondary">Cancelar</a>
+    <form action="{% url 'crearReporte' id %}" method="post">
+        {% csrf_token %}
+        <label for="titulo">Titulo</label>
+        <input type="text" name="titulo" id="titulo" required><br>
+        <label for="descripcion">Descripcion</label>
+        <input type="text" name="descripcion" id="descripcion" required><br>
+        <label for="importante">Importante</label>
+        <input type="checkbox" name="importante" id="importante"><br>
+        <button type="submit">Crear</button>
+
+{% endblock %}

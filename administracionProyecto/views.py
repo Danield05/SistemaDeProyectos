@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import FormTarea , FormRecurso, ProyectoForm
-from .models import Tarea, Recurso, Proyecto
+from .forms import FormTarea , FormRecurso, ProyectoForm, FormReporte
+from .models import Tarea, Recurso, Proyecto, Reporte
 from django.contrib.auth.models import User
 from django.urls import reverse
 
@@ -144,3 +144,40 @@ def aprobarProyecto(request, id):
         return redirect(reverse('proyecto', args=[proyecto.id]))
     return render(request, 'proyecto.html', {'proyecto': proyecto})
 
+def listaReporte(request, id):
+    proyecto = Proyecto.objects.get(id=id)
+    reportes = Reporte.objects.filter(proyecto=proyecto)
+    return render(request, 'listaReporte.html', {'reportes': reportes,'id':id})
+    
+
+def crearReporte(request, id):    
+    if request.method == 'GET':
+        return render(request,'crearReporte.html', {
+            'id':id,
+            'form': FormReporte,
+        })
+    else:
+        form = FormReporte(request.POST)
+        if form.is_valid():
+            nuevoReporte = form.save(commit=False)
+            nuevoReporte.proyecto = Proyecto.objects.get(id=id)
+            nuevoReporte.save()
+            return redirect('listaReporte', id=id)
+
+        
+def editarReporte(request, id):
+    reporte = Reporte.objects.get(id=id)
+    if request.method == 'POST':
+        form = FormReporte(request.POST, instance=reporte)
+        if form.is_valid():
+            form.save()
+            return redirect('listaReporte', id=reporte.proyecto.id)
+    return render(request, 'editarReporte.html', {
+        'form': FormReporte(instance=reporte)
+    }) 
+    
+def eliminarReporte(request, id):
+    reporte = Reporte.objects.get(id=id)
+    reporte.delete()   
+    return redirect('listaReporte', id=reporte.proyecto.id) 
+        

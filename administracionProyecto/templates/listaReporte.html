@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Reportes</h2>
+<a href="{% url 'crearReporte' id %}" class="btn btn-primary">Crear Reporte</a> 
+<table border ="2">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>Importante</th>
+            <th>Proyecto</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reporte in reportes %}
+        <tr>
+            <td>{{ reporte.titulo }}</td>
+            <td>{{ reporte.descripcion }}</td>
+            <td>
+                {% if reporte.importante %}
+                <strong>Si lo es</strong>
+                {% else %}
+                <span>No lo es</span>
+                {% endif %}
+            </td>
+            <td>{{ reporte.proyecto }}</td>
+            <td>
+                <a href="{% url 'editarReporte' reporte.id %}">Editar</a> 
+                <a href="{% url 'eliminarReporte' reporte.id %}">Eliminar</a> 
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
