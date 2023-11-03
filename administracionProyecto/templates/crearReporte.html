@@ -10,8 +10,10 @@
         <input type="text" name="descripcion" id="descripcion" required><br>
         <label for="tipo">Tipo de Reporte:</label>
         <select name="tipo" id="tipo" required>
-            <option value="general">Reporte General</option>
-            <option value="financiero">Reporte Financiero</option>
+            {% if not es_inversor %}
+                <option value="general">Reporte General</option>
+            {% endif %}
+                <option value="financiero">Reporte Financiero</option>
         </select><br>
         <button type="submit">Crear</button>
 
