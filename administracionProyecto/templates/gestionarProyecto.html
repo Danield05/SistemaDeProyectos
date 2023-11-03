@@ -1,25 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Gestion: </h1>
-<a href="{% url 'crear_proyecto' %}" class="btn btn-primary">Crear Proyecto</a>
-<h2>Proyectos</h2>
-<table border=1>
-    <thead>
-        <tr>
-            <th>Nombre del proyecto</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for proyecto in proyectos %}
-        <tr>
-            <td><a href="{% url 'proyecto' proyecto.id %}">{{ proyecto.nombre }}</a></td>
-            <td><a href="{% url 'editarProyecto' proyecto.id %}">Editar</a></td>
-            <td><a href="{% url 'eliminarProyecto' proyecto.id %}">Eliminar</a></td>
-        </tr>
-        
-        {% endfor %}
-    </tbody>
-</table>
+    <div style="margin-left: 40px; margin-top: 30px;">
+        <span class="material-symbols-outlined" style="font-size: 45px; display: inline-block;">
+            folder_managed
+        </span>
+        <h1 class="text-2xl font-bold" style="font-size: 30px; display: inline-block; vertical-align: middle;  margin-bottom: 25px;">Gestion de Proyectos</h1>
+        <br>
+        <h3 style="display: inline-block; font-weight: bold; font-size: 20px; margin-top: 25px;">Crear proyecto:</h3>
+        <a href="{% url 'crear_proyecto' %}" class="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">
+            Crear
+        </a>
+        <br>
+
+        <table style="width: 50%; border-collapse: collapse; margin-top: 20px;">
+            <thead class="text-2xl font-bold">
+                <tr class="bg-gray-800 text-white">
+                    <th class="bg-gray-800 p-2 border" colspan="3" >Proyectos</th>
+                </tr>
+                <tr class="bg-gray-800 text-white">
+                    <th class="border p-1">Nombre del proyecto</th>
+                    <th class="border p-1" colspan="2">Opciones</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for proyecto in proyectos %}
+                <tr class="border">
+                    <td class="border p-1 w-1/10">
+                        <a href="{% url 'proyecto' proyecto.id %}"  style="display: inline-block; font-weight: bold; font-size: 20px;">{{ proyecto.nombre }}</a>
+                    </td>
+                    <td class="border p-1" colspan="2">
+                        <div class="flex justify-between">
+                            <a href="{% url 'editarProyecto' proyecto.id %}" class="py-2 px-4 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">
+                                Editar
+                            </a>
+                            <a href="{% url 'eliminarProyecto' proyecto.id %}" class="py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50 " style="width: 48%; text-align: center; font-weight: bold;">
+                                Eliminar
+                            </a>
+                        </div>
+                    </td>   
+                </tr>
+                
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

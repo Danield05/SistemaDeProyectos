@@ -92,15 +92,24 @@ def gestionar(request):
 
 def crearProyecto(request):
     if request.method == 'GET':
-        usuario = User.objects.all()
+        usuarios = User.objects.all()
         proyecto = Proyecto.objects.all()
+        tipos_prioridad = ProyectoForm.PRIORIDAD_CHOICES
+        tipos_prioridad = [tipo[0] for tipo in tipos_prioridad]
+        # haz lo mismo para que los tipos de prioridad para los tipos de estado en una sola linea
+        tipos_estados = ProyectoForm.ESTADO_CHOICES
+        tipos_estados = [tipo[0] for tipo in tipos_estados]
+
         return render(request,'crearProyecto.html', {
-            'usuario': usuario,
+            'usuarios': usuarios,
             'proyecto': proyecto,
-            'form': ProyectoForm
+            'form': ProyectoForm,
+            'tipos_prioridad': tipos_prioridad,
+            'tipos_estados': tipos_estados,
         })
     else:
         form = ProyectoForm(request.POST)
+        
         if form.is_valid():
             nuevoProyecto = form.save(commit=False)
             nuevoProyecto.save()
@@ -108,6 +117,7 @@ def crearProyecto(request):
   
 def editarProyecto(request, id):
     proyecto = Proyecto.objects.get(id=id)
+
     if request.method == 'POST':
         form = ProyectoForm(request.POST, instance=proyecto)
         if form.is_valid():
@@ -115,7 +125,9 @@ def editarProyecto(request, id):
             return redirect(reverse('gestionar_proyecto'))
     else:
         form = ProyectoForm(instance=proyecto)
-    return render(request, 'editarProyecto.html', {'form': form})
+    return render(request, 'editarProyecto.html', {
+        'form': form,
+    })
     
 
 def proyecto(request, id):

@@ -1,39 +1,72 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Recursos</h2>
-<a href="{% url 'agregarRecurso' id %}" class="btn btn-primary">Agregar Recurso</a> 
-<table border ="2">
-    <thead>
-        <tr>
-            <th>Nombre del recurso</th>
-            <th>Descripcion</th>
-            <th>Disponibilidad</th>
-            <th>Cantidad</th>
-            <th>Proyecto</th>
-            <th>Opciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for recurso in recurso %}
-        <tr>
-            <td>{{ recurso.nombre }}</td>
-            <td>{{ recurso.descripcion }}</td>
-            <td>
-                {% if recurso.disponibilidad %}
-                Disponible
-                {% else %}
-                No disponible
-                {% endif %}
-            </td>
-            <td>{{ recurso.cantidad }}</td>
-            <td>{{ recurso.proyecto }}</td>
-            <td>
-                <a href="{% url 'editarRecurso' recurso.id %}">Editar</a> 
-                <a href="{% url 'eliminarRecurso' recurso.id %}">Eliminar</a> 
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div style="margin-left: 40px;margin-top: 30px;">
+    <i class="fas fa-project-diagram mr-2" style="font-size: 30px; margin-bottom: 25px;"></i>
+<h1 class="text-2xl font-bold" style="display: inline-block; font-size: 30px; margin-bottom: 25px;">Recursos</h2>
+<br>
+<a href="{% url 'agregarRecurso' id %}" class="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold; margin-top: 50px;">
+    Agregar Recurso
+</a>
+
+    <table style="width: 75%; border-collapse: collapse; margin-top: 20px;">
+        <thead class="text-2xl font-bold">
+            <tr class="bg-gray-800 text-white">
+                <th  class="border p-1">Nombre del recurso</th>
+                <th class="border p-1">Descripcion</th>
+                <th class="border p-1">Disponibilidad</th>
+                <th class="border p-1">Cantidad</th>
+                <th class="border p-1" >Proyecto</th>
+                <th class="border p-1">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recurso in recurso %}
+            <tr class="border">
+                <td class="border p-1 w-1/10" style="font-weight: bold;">{{ recurso.nombre }}</td>
+                <td class="border p-1 w-1/10">{{ recurso.descripcion }}</td>
+                <td class="border p-1 w-1/10">
+                    {% if recurso.disponibilidad %}
+                    Disponible
+                    {% else %}
+                    No disponible
+                    {% endif %}
+                </td>
+                <td class="border p-1 w-1/10">{{ recurso.cantidad }}</td>
+                <td class="border p-1 w-1/10">{{ recurso.proyecto }}</td>
+                <td class="border p-1 w-1/10">
+                    <div class="flex justify-between">
+                        <a href="{% url 'editarRecurso' recurso.id %}"class="py-2 px-4 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">Editar</a> 
+                        <a href="#" class="w-1/2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50 flex items-center justify-center" style="width: 48%; text-align: center; font-weight: bold;" id="custom-alert-button-e" data-signin-url-e="{% url 'eliminarRecurso' recurso.id %}">
+                            Eliminar
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    document.getElementById('custom-alert-button-e').addEventListener('click', function() {
+        const signinURL = this.getAttribute('data-signin-url-e');
+    
+        Swal.fire({
+            title: '¿Eliminar?',
+            text: '¿Estás seguro de que quieres eliminar este recurso?',
+            icon: 'warning',
+            confirmButtonColor: '#60A5FA',
+            cancelButtonColor: '#EF4444',
+            showCancelButton: true,
+            confirmButtonText: 'Si, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = signinURL;
+            }
+        });
+    });
+</script>
+
+
 {% endblock %}

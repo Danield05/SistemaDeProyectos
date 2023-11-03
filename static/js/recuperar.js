@@ -3,7 +3,7 @@ document.getElementById('custom-alert-button').addEventListener('click', functio
 
     Swal.fire({
         title: '¿Cancelar?',
-        text: 'Mensaje personalizado',
+        text: '¿Estás seguro de que quieres cancelar la recuperación de tu contraseña?',
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'OK',
