@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for proyecto in proyectos %}
+                    {% for proyecto in proyecto %}
                     <tr class="border">
                         <td class="border p-1 w-1/10">
                             <a href="{% url 'proyecto' proyecto.id %}"  style="display: inline-block; font-weight: bold; font-size: 20px;">{{ proyecto.nombre }}</a>
