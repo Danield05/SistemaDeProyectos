@@ -16,7 +16,8 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
 - Python 3.x
 - Django (ver el archivo `requirements.txt` para las dependencias específicas)
-
+  
+![Logo de Django](https://www.djangoproject.com/m/img/logos/django-logo-negative.png)
 ## Instalación
 
 Sigue estos pasos para configurar y ejecutar el proyecto:
