@@ -56,6 +56,7 @@ INSTALLED_APPS = [
      #Otras aplicaciones
     'login',
     'administracionProyecto',
+    'dj_database_url',
 ]
 
 MIDDLEWARE = [
@@ -100,7 +101,7 @@ WSGI_APPLICATION = 'SistemaGestorProyectos.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='mysql://x13duok8pqy5b1ee:u7hblh4uz6tftwut@cxmgkzhk95kfgbq4.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/vbindn8nh50v0b83',
+        default='mysql://x13duok8pqy5b1ee:@localhost:3306/vbindn8nh50v0b83',
         conn_max_age=600,
     )
 }
