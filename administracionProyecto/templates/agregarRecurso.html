@@ -7,7 +7,7 @@
                     <div class="w-full text-white  h-full flex flex-col items-center justify-center ">
                         {% comment %} Formulario agregarRecurso {% endcomment %}
                         {% if es_administrador %}
-                            <form action="{% url 'listaRecurso' id %}" method="post" class=" w-full max-w-md mx-auto"> 
+                            <form action="{% url 'agregarRecurso' id %}" method="post" class=" w-full max-w-md mx-auto"> 
                                 <h1 class="text-3xl font-bold text-center mb-4" style="font-weight: bold; font-size: 30px;">Agregar Recurso</h1>
                                 {% csrf_token %}
                                 <div class="mb-4">
