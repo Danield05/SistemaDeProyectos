@@ -1,44 +1,76 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Tareas </h2>
-{% if not es_empleado_formulador_proyectos %}
-<a href="{% url 'crearTarea' id %}" class="btn btn-primary">Crear Tarea</a> 
-{% endif %}
-<a href="{% url 'proyecto' id %}" class="btn btn-primary">Volver</a>
-<table border ="2">
-    <thead>
-        <tr>
-            <th>Nombre de la tarea</th>
-            <th>Descripcion</th>
-            <th>Estado</th>
-            <th>Fecha de inicio</th>
-            <th>Fecha de fin</th>
-            <th>Encargado</th>
-            <th>Proyecto</th>
-            {% if not es_empleado_formulador_proyectos %}
-            <th>Opciones</th>
-            {% endif %}
-        </tr>
-    </thead>
-    <tbody>
-        {% for tarea in tarea %}
-        <tr>
-            <td>{{ tarea.nombre }}</td>
-            <td>{{ tarea.descripcion }}</td>
-            <td>{{ tarea.estado }}</td>
-            <td>{{ tarea.fecha_inicio }}</td>
-            <td>{{ tarea.fecha_fin }}</td>
-            <td>{{ tarea.encargado }}</td>
-            <td>{{ tarea.proyecto }}</td>
-            {% if not es_empleado_formulador_proyectos %}
-            <td>    
-                    <a href="{% url 'editarTarea' tarea.id %}">Editar</a> 
-                    <a href="{% url 'eliminarTarea' tarea.id %}">Eliminar</a> 
-            </td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div style="margin-left: 40px; margin-top: 30px;">
+    <i class="fas fa-book mr-2" style="font-size: 30px; margin-bottom: 25px;"></i>
+    <h1 class="text-2xl font-bold" style="display: inline-block; font-size: 30px; margin-bottom: 25px;">Tareas</h1>
+    <br>
+    <div class="flex justify-between" style="width: 23%;">
+        <a href="{% url 'crearTarea' id %}" class="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">
+            Crear Tarea
+        </a>
+        <a href="{% url 'gestionar_proyecto'  %}" class="py-2 px-4 bg-purple-500 text-white rounded-md hover:bg-purple-600 focus:outline-none focus:ring focus:ring-opacity-50 " style="width: 48%; text-align: center; font-weight: bold;">
+            Volver a Proyectos
+        </a>
+    </div>
+
+
+    <table style="width: 75%; border-collapse: collapse; margin-top: 20px;">
+        <thead class="text-2xl font-bold">
+            <tr class="bg-gray-800 text-white">
+                <th class="border p-1">Nombre de la tarea</th>
+                <th class="border p-1">Descripcion</th>
+                <th class="border p-1">Estado</th>
+                <th class="border p-1">Fecha de inicio</th>
+                <th class="border p-1">Fecha de fin</th>
+                <th class="border p-1">Encargado</th>
+                <th class="border p-1">Proyecto</th>
+                <th class="border p-1">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tarea in tarea %}
+            <tr class="border">
+                <td class="border p-1 w-1/10" style="font-weight: bold;">{{ tarea.nombre }}</td>
+                <td class="border p-1 w-1/10">{{ tarea.descripcion }}</td>
+                <td class="border p-1 w-1/10">{{ tarea.estado }}</td>
+                <td class="border p-1 w-1/10">{{ tarea.fecha_inicio }}</td>
+                <td class="border p-1 w-1/10">{{ tarea.fecha_fin }}</td>
+                <td class="border p-1 w-1/10">{{ tarea.encargado }}</td>
+                <td class="border p-1 w-1/10">{{ tarea.proyecto }}</td>
+                <td class="border p-1 w-1/10">
+                    <div class="flex justify-between">
+                        <a href="{% url 'editarTarea' tarea.id %}" class="py-2 px-4 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">Editar</a>
+                        <a href="#" class="w-1/2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50 flex items-center justify-center" style="width: 48%; text-align: center; font-weight: bold;" id="custom-alert-button-el" data-signin-url-el="{% url 'eliminarTarea' tarea.id %}">
+                            Eliminar
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.querySelectorAll('[id^="custom-alert-button-el"]').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const projectID = this.getAttribute('data-signin-url-el');
+            Swal.fire({
+                title: '¿Eliminar?',
+                text: '¿Estás seguro de que quieres eliminar esta Tarea?',
+                icon: 'warning',
+                confirmButtonColor: '#60A5FA',
+                cancelButtonColor: '#EF4444',
+                showCancelButton: true,
+                confirmButtonText: 'Si, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = projectID;
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

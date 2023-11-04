@@ -1,7 +1,53 @@
 {% extends 'base.html' %}
 
 {% block content %}
+        <div class="flex justify-center items-center h-full bg-gray-100" style="margin-left: 50px;">
+            <div class="w-75% p-4 rounded-lg shadow-md border border-gray-100 animate__animated animate__fadeIn w-full flex flex-wrap-reverse md:flex-nowrap items-center">
+                <div class="md:w-1/2 md:pr-4">
+                    <h1 class="text-3xl font-bold mb-2">Bienvenido a Sistema de Gestion de Proyectos</h1>
+                    <p>
+                        Este sistema se basa en la gestion de proyectos, en el cual se podra llevar un control de los proyectos que se estan realizando en la empresa,
+                        asi como tambien llevar un control de los empleados que estan trabajando en dicho proyecto, ademas de asignarle un rol a cada empleado
+                        y tareas que se le sera asignadas.
+                    </p>
+                </div>
+                <div class="md:w-1/2" >
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Logo_del_Gobierno_de_El_Salvador_%282019%29.svg/564px-Logo_del_Gobierno_de_El_Salvador_%282019%29.svg.png" style="margin-left: 20%;">
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center items-center h-auto bg-gray-100" style="margin-left: 50px;">
+            <div class="w-75%  p-4 rounded-lg shadow-md border border-gray-100 animate__animated animate__fadeIn animate__delay-1s w-full">
+                <h1 class="text-3xl font-bold mb-2">Sistema de Gestion de Proyecto</h1>
+                <p>
+                    &#8226;&nbsp;Verificacion de dos pasos
+                    <br>
+                    &#8226;&nbsp;Registro de empleados
+                    <br>
+                    &#8226;&nbsp;Gestion de proyectos
+                    <br>
+                    &#8226;&nbsp;Asignacion tareas
+                    <br>
+                    &#8226;&nbsp;Asignacion de recursos
+                    <a href="{% url 'gestionar_proyecto'  %}" class="block p-2">
+                        <i class="fas fa-folder"></i>
+                
+                        <span>Ver Proyectos</span>
+                    </a>
+
+                </p>
+            </div>
+        </div>
+
+        <div class="flex justify-center items-center h-auto bg-gray-100" style="margin-left: 50px;">
+            <div class="w-75%  p-4 rounded-lg shadow-md border border-gray-100 animate__animated animate__fadeIn animate__delay-2s w-full">
+                <h1 class="text-3xl font-bold mb-2">Finalidad</h1>
+                <p>
+                    La finalidad de este sistema es llevar un control de los proyectos que se estan realizando en la empresa, 
+                    asi como de ser intuitiva para el usuario y que sea facil de usar. 
+                </p>
+            </div>
+        </div>
     
-    <h1>Bienvenido a la página de inicio</h1>
-    <p>Este es el contenido de la página de inicio.</p>
 {% endblock %}

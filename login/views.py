@@ -39,6 +39,8 @@ def create_employee(request):
         password=request.POST['password1'],
         first_name=request.POST['first_name'],
         last_name=request.POST['last_name'],
+        #dui = "",
+
     )
     
     return  user
@@ -50,7 +52,7 @@ def home(request):
 
 #signin
 
-def get_user_totp_device(self,user, confirmed=None):
+def get_user_totp_device(user, confirmed=None): #eliminado un ,self
         devices = devices_for_user(user, confirmed=confirmed)
         for device in devices:
             if isinstance(device, TOTPDevice):
@@ -94,7 +96,6 @@ def signup(request):
                     'user': user,
                     'qr_code': device.config_url,
                     'contraseña': request.POST['password1'],
-                    'rol' : request.POST['rol'],
                 })
                 to_email = request.POST['email']
                 email = EmailMessage(
@@ -166,7 +167,97 @@ def signin(request):
         
 
 
-  
+def recuperar(request):
+     if request.method == 'POST':
+        user1 =  request.POST['user']
+        password1 = request.POST['password1']
+        otp_token = request.POST['otp_token']
+        user = None
+        if request.POST['password1'] == request.POST['password2']:
+            user = User.objects.get(username=user1)
+            if user is not None:
+                 device_match = match_token(user=user, token=otp_token)
+                 device = get_user_totp_device(user)             
+                 device = user.totpdevice_set.get(confirmed=True)
+
+                 if device_match is not None:
+                      user.set_password(password1)
+                      user.save()                    
+                    
+                      mail_subject = 'Cambio de Contraseña'
+                      message = render_to_string('account_activation_email.html', {
+                            'user': user,
+                            'qr_code': device.config_url,
+                            'contraseña': request.POST['password1'],
+                        })
+                      to_email = user.email
+                      email = EmailMessage(
+                            mail_subject, message, to=[to_email]
+                        )
+                      email.content_subtype = "html"
+                      email.send()
 
 
+                      return redirect('signin')
+                 else:
+                       return  render(request, 'signin.html', {
+                        'form': UserCreationForm(),
+                        'error': 'Token verficacion a 2 pasos incorrecto'})
+        else:
+                return render(request, 'signin.html', {
+                'form': UserCreationForm(),
+                'error': 'Usuario y/o contraseña incorrectos'
+            })
+     
+     else: 
+        return render(request, 'recuperar.html', {
+            'form': UserCreationForm()
+    })
 
+@login_required()
+def editProfile(request):
+    if request.method == 'POST':
+        user1 =  request.user
+        otp_token = request.POST['otp_token']
+
+
+        device_match = match_token(user=user1, token=otp_token)
+        if device_match is not None:
+
+            user1.profile.dui = request.POST['dui']
+            user1.profile.nit = request.POST['nit']
+            user1.profile.pais = request.POST['pais']
+            genero = buscar_genero(request.POST['genero'])
+            if genero != "":
+                user1.profile.genero = genero
+            user1.profile.departamento = request.POST['departamento']
+            user1.save()        
+            user1.profile.save()
+        else:
+                return  render(request, 'editarPerfil.html', {
+            'form': UserCreationForm(),
+             'error': 'Token verficacion a 2 pasos incorrecto'})
+
+        
+        return redirect('perfil')
+    else:
+        return render(request, 'editarPerfil.html',{
+            'form': UserCreationForm(),
+             })
+    
+    
+@login_required()
+def profile(request):
+    return render(request, 'profile.html')
+
+
+def buscar_genero(dato):
+    if dato =='1':
+            gen= "Masculino"
+    elif dato == '2':  
+            gen= "Femenino"
+    elif dato=='3':
+            gen= "Otro"
+    else:
+            gen= ""
+    return gen

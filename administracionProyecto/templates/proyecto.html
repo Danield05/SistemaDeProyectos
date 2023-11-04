@@ -1,35 +1,86 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Administracion de proyecto</h1>
-<p>Nombre: {{proyecto.nombre}}<p>
-    <p>
-        Autorizacion: {% if proyecto.aprobado %} Aprobado {% else %} Pendiente {% endif %}
-    </p>
-<p>Objetivo: {{proyecto.objetivo}}<p>
-<p>Fecha de Inicio: {{proyecto.fecha_inicio}}<p>
-<p>Fecha de Finalizacion: {{proyecto.fecha_fin}}<p>
-<p>Estado del proyecto: {{proyecto.estado}}<p>
-<p>Presupuesto(USD): ${{proyecto.presupuesto}}<p>
-<p>Encargado: {{proyecto.encargado}}<p>
-{% if es_administrador %}
+<main style="margin-top: 30px; margin-left: 30px;">
+  <table cellpadding="0" cellspacing="0" style="width: 90%; border-collapse: collapse; border: 1px solid #000;">
+    <tr>
+        <td class="text-black text-center border border-black">
+            <h1 class="text-2xl font-bold mb-4">Administración de Proyecto</h1>
+        </td>
+        <td class="text-center border border-black">
+            <div class="mb-4">
+                <p class="block text-gray-600 text-sm font-bold mb-2">Nombre: {{proyecto.nombre}}</p>
+            </div>
+        </td>
+        <td class="text-center border border-black">
+            <div class="mb-4">
+                <p class="block text-gray-600 text-sm font-bold mb-2">Autorización: <span class="{% if proyecto.aprobado %}text-green-500{% else %}text-red-500{% endif %}">{% if proyecto.aprobado %}Aprobado{% else %}Pendiente{% endif %}</span></p>
+            </div>
+        </td>
+        <td class="text-center border border-black">
+            <div class="mb-4">
+                <p class="block text-gray-600 text-sm font-bold mb-2">Objetivo: {{proyecto.objetivo}}</p>
+            </div>
+        </td>
+        <td class="text-center border border-black">
+            <div class="mb-4">
+                <p class="block text-gray-600 text-sm font-bold mb-2">Fecha de Inicio: {{proyecto.fecha_inicio}}</p>
+            </div>
+        </td>
+        <td class="text-center border border-black">
+            <div class="mb-4">
+                <p class="block text-gray-600 text-sm font-bold mb-2">Fecha de Finalización: {{proyecto.fecha_fin}}</p>
+            </div>
+        </td>
+        <td class="text-center border border-black">
+            <div class="mb-4">
+                <p class="block text-gray-600 text-sm font-bold mb-2">Estado del Proyecto: {{proyecto.estado}}</p>
+            </div>
+        </td>
+        <td class="text-center border border-black">
+            <div class="mb-4">
+                <p class="block text-gray-600 text-sm font-bold mb-2">Presupuesto (USD): ${{proyecto.presupuesto}}</p>
+            </div>
+        </td>
+        <td class="text-center border border-black">
+            <div class="mb-4">
+                <p class="block text-gray-600 text-sm font-bold mb-2">Encargado: {{proyecto.encargado}}</p>
+            </div>
+        </td>
+    </tr>
+</table>
+<div style="margin-top: 30px;" class="flex justify-between space-x-4">
+    <div class="flex">
+        <a href="{% url 'listaTarea' id %}" class="w-20 h-8 py-1 px-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-opacity-50 font-bold text-center" >Tareas</a>
+        <a href="{% url 'listaRecurso' id %}" class="w-20 h-8 py-1 px-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 focus:outline-none focus:ring focus:ring-opacity-50 font-bold text-center" >Recursos</a>
+    </div>
     {% if not proyecto.aprobado %}
-<form method="POST" action="{% url 'aprobarProyecto' proyecto.id %}">
-    {% csrf_token %}
-    <input type="submit" value="Aprobar Proyecto">
-</form>
+    <form method="POST" action="{% url 'aprobarProyecto' proyecto.id %}" class="flex-1">
+        {% csrf_token %}
+        <button type="submit" class="w-20 h-8 py-1 px-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-opacity-50 font-bold text-center">Aprobar</button>
+    </form>
     {% endif %}
-{% endif %}
-{% if not es_inversor %}
-<a href="{% url 'listaTarea' id %}">Ver Tareas</a>
-<a href="{% url 'listaRecurso' id %}">Ver Recursos</a>
-{% endif %}
-<a href="{% url 'listaReporte' id %}">Ver Reportes</a>
-<h2>Calendario del proyecto {{proyecto.nombre}}</h2>
-<div id="calendar"></div>
+</div>
+
+
+</main>
+
+<h2 class="text-2xl font-bold mt-4" style="margin-top:40px;text-align: center;">Calendario del Proyecto {{proyecto.nombre}}</h2>
+
+<div id="calendar" class="calendario-container">
+    <!-- Contenido del calendario -->
+</div>
 {% endblock %}
 {% block extra_js %}
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dc4641f860664c6e824b093274f50291"}'></script>
+<style>
+  .calendario-container {
+    width: 60%; /* Ancho del calendario, puedes ajustar el valor según tus necesidades */
+    padding-right: 50px; /* Ajusta este valor para mover el calendario hacia la derecha */
+    height: 600px; /* Altura del calendario, puedes ajustar el valor según tus necesidades */
+    margin: 0 auto; /* Esto centrará el calendario horizontalmente */
+  }
+</style>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');

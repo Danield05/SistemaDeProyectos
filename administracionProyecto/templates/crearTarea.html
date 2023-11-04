@@ -1,30 +1,86 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Crear tarea</h1>
-<a href="{% url 'listaTarea' id %}" class="btn btn-secondary">Cancelar</a>
-    <form action="{% url 'crearTarea' id %}" method="post">
-        {% csrf_token %}
-        <label for="nombre">Nombre</label>
-        <input type="text" name="nombre" id="nombre" required><br>
-        <label for="descripcion">Descripcion</label>
-        <input type="text" name="descripcion" id="descripcion" required><br>
-        <label for="estado">Estado</label>
-        <select name="estado" id="estado" required>
-            <option value="Pendiente">Pendiente</option>
-            <option value="Progreso">Progreso</option>
-            <option value="Completada">Completada</option>
-        </select><br>
-        <label for="fecha_inicio">Fecha Inicio</label>
-        <input type="date" name="fecha_inicio" id="fecha_inicio" required><br>
-        <label for="fecha_fin">Fecha Fin</label>
-        <input type="date" name="fecha_fin" id="fecha_fin" required><br>
-        <label for="encargado">Encargado</label>
-        <select name="encargado" id="encargado" required> <!--le falta el required-->
-            <option value="">seleccione un encargado</option>
-            {% for usuario in usuario %}
-                <option value="{{ usuario.username }}">{{ usuario.username }}</option>
-            {% endfor %}
-        </select><br>
-        <button type="submit">Crear</button>
+    <section class="bg-white dark:bg-gray-900">
+        <div class="lg:grid lg:min-h-screen lg:grid-cols-12 bg-gray-900">
+            <main class="lg:col-span-7 xl:col-span-6 bg-gray-900" style="margin-top: 30px;">
+                <div class="min-h-screen flex items-center justify-center">
+                    <div class="w-full text-white h-full flex flex-col items-center justify-center">
+                        <h1 class="text-2xl font-bold text-center mb-4" style="font-size: 30px; vertical-align: middle; margin-bottom: 25px;">Crear tarea</h1><br>
+                        {% comment %} Formulario de creacion de tarea {% endcomment %}
+                        <form action="{% url 'crearTarea' id %}" method="post" class="w-full max-w-md mx-auto">
+                            {% csrf_token %}
+                            <div class="mb-4">
+                                <label for="nombre" class="block text-gray-300 text-sm font-bold mb-2">Nombre</label>
+                                <input type="text" name="nombre" id="nombre" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
+                            
+                                <label for="descripcion" class="block text-gray-300 text-sm font-bold mb-2">Descripcion</label>
+                                <input type="text" name="descripcion" id="descripcion" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
+                            <div>
+                            <div class="mb-4">
+                                <label for="estado" class="block text-gray-300 text-sm font-bold mb-2">Estado</label>
+                                <select name="estado" id="estado" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Progreso">Progreso</option>
+                                    <option value="Completada">Completada</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label for="fecha_inicio" class="block text-gray-300 text-sm font-bold mb-2">Fecha Inicio</label>
+                                <input type="date" name="fecha_inicio" id="fecha_inicio" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
+                            </div>
+                            <div class="mb-4">
+                                <label for="fecha_fin" class="block text-gray-300 text-sm font-bold mb-2">Fecha Fin</label>
+                                <input type="date" name="fecha_fin" id="fecha_fin" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
+                            </div>
+                            <div class="mb-4">
+                                <label for="encargado" class="block text-gray-300 text-sm font-bold mb-2">Encargado</label>
+                                <select name="encargado" id="encargado" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600"> <!--le falta el required-->
+                                    <option value="">seleccione un encargado</option>
+                                    {% for usuario in usuario %}
+                                        <option value="{{ usuario.username }}">{{ usuario.username }}</option>
+                                    {% endfor %}
+                                </select><br>
+                            </div>
+                            <div class="text-center">
+                                <div class="flex items-center justify-center space-x-4">
+                                    <button type="submit" class="w-1/2 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-opacity-50">Crear</button>
+                                    <a href="#"  class="w-1/2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50" id="custom-alert-button-c" data-signin-url-c="{% url 'listaTarea' id %}">Cancelar</a>
+                               </div>
+                            </div>
+                       </form>
+                    </div>
+                </div>
+            </main>
+            <section class="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
+                <img alt="Night" src="https://cdn.discordapp.com/attachments/1154915178895388712/1169902982675050528/herramientas-planificacion-trabajo.png?ex=6557180e&is=6544a30e&hm=6d7b75ed42f87e0a1f5df928bddc04b289b59fd964b1daac14dc8dda417e618f&" class="absolute inset-0 h-full w-full object-cover opacity-80" />
+                <div class="hidden lg:relative lg:block lg:p-12">
+                    <h2 class="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+                        Sistema Gestor de Proyectos <i class="fa-brands fa-python"></i>
+                    </h2>
+                    <p class="mt-4 leading-relaxed text-white sm:text-2xl md:text-3xl">
+                        Camperitos S.A de C.V <i class="fa-solid fa-laptop-code"></i>
+                    </p>
+                </div>
+            </section>
+        </div>
+    </section>
 
+<script>
+    document.getElementById('custom-alert-button-c').addEventListener('click', function() {
+        const signinURL = this.getAttribute('data-signin-url-c');
+    
+        Swal.fire({
+            title: '¿Cancelar?',
+            text: '¿Estás seguro de que quieres cancelar agregar una tarea?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = signinURL;
+            }
+        });
+    });
+</script>
 {% endblock %}
