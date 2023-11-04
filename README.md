@@ -53,9 +53,6 @@ Si deseas contribuir al desarrollo de este proyecto, por favor sigue estas pauta
 - Realiza tus cambios y asegúrate de seguir las guías de estilo.
 - Envía una solicitud de extracción (Pull Request) describiendo tus cambios.
 
-## Licencia
-
-Este proyecto se distribuye bajo la licencia [Tu Licencia]. Consulta el archivo [LICENSE](LICENSE) para obtener más detalles.
 
 ## Contacto
 
