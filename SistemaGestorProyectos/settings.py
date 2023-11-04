@@ -99,11 +99,15 @@ WSGI_APPLICATION = 'SistemaGestorProyectos.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='mysql://x13duok8pqy5b1ee:u7hblh4uz6tftwut@cxmgkzhk95kfgbq4.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/vbindn8nh50v0b83',
+#         conn_max_age=600,
+#     )
+# }
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default='mysql://x13duok8pqy5b1ee:u7hblh4uz6tftwut@cxmgkzhk95kfgbq4.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/vbindn8nh50v0b83',
-        conn_max_age=600,
-    )
+	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
 
