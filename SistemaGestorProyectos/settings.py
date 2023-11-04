@@ -101,13 +101,20 @@ WSGI_APPLICATION = 'SistemaGestorProyectos.wsgi.application'
 
 # DATABASES = {
 #     'default': dj_database_url.config(
-#         default='mysql://x13duok8pqy5b1ee:u7hblh4uz6tftwut@cxmgkzhk95kfgbq4.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/vbindn8nh50v0b83',
+#         default='mysql://root:root@localhost:3306/CamperitosBD',
 #         conn_max_age=600,
 #     )
 # }
 
 DATABASES = {
-	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'vbindn8nh50v0b83',
+        'USER': 'x13duok8pqy5b1ee',
+        'PASSWORD': 'u7hblh4uz6tftwut',
+        'HOST': 'cxmgkzhk95kfgbq4.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        'PORT': 3306,
+    }
 }
 
 
