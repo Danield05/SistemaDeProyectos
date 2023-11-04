@@ -1,9 +1,65 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Editar Reporte</h1>
-<form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Editar</button>
-</form>
+<section class="bg-white dark:bg-gray-900">
+    <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
+        <main class="lg:col-span-7 xl:col-span-6 bg-gray-900">
+            <div class="min-h-screen flex items-center justify-center">
+                <div class="w-full text-white h-full flex flex-col items-center justify-center">
+                    <h1 class="text-3xl font-bold text-center mb-4" style="font-weight: bold; font-size: 30px;">Editar Reporte</h1>
+                    <form action="" method="POST" class="w-full max-w-md mx-auto">
+                        {% csrf_token %}
+                        <label for="titulo">Titulo:</label>
+                        <input type="text" name="titulo" value="{{ reporte.titulo }}" id="titulo" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
+                        <label for="descripcion">Descripcion:</label>
+                        <input type="text" name="descripcion" value="{{ reporte.descripcion }}" id="descripcion" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
+                        <label for="tipo">Tipo:</label>
+                        <select name="tipo" id="tipo" class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
+                            {% for tipo in tipos %}
+                                <option value="{{ tipo.0 }}" {% if tipo.0 == reporte.tipo %}selected{% endif %}>{{ tipo.1 }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="text-center">
+                            <div class="flex items-center justify-center space-x-4"> 
+                            <button type="submit" class="w-1/2 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-opacity-50" style="margin-top: 15px;">Editar</button>
+                            <a href="#" class="w-1/2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50" id="custom-alert-button-c" data-signin-url-c="{% url 'listaReporte' id %}" style="margin-top: 15px;">Cancelar</a>
+                            </div>
+                        </div>
+                        </form>
+                </div>
+            </div>
+        </main>
+        <section class="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
+            <img alt="Night"
+                src="https://cdn.discordapp.com/attachments/1154915178895388712/1170150176447545415/gestion-informes-reportes-sap-business-one-itop-academy.png?ex=6557fe46&is=65458946&hm=3866a02d542610cb830e6b6313b88b47d69bbd5b4e392fac8715694284cc5915&"
+                class="absolute inset-0 h-full w-full object-cover opacity-80" />
+            <div class="hidden lg:relative lg:block lg:p-12">
+                <h2 class="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+                    Sistema Gestor de Proyectos <i class="fa-brands fa-python"></i>
+                </h2>
+                <p class="mt-4 leading-relaxed text-white sm:text-2xl md:text-3xl">
+                    Camperitos S.A de C.V <i class="fa-solid fa-laptop-code"></i>
+                </p>
+            </div>
+        </section>
+    </div>
+</section>
+
+<script>
+    document.getElementById('custom-alert-button-c').addEventListener('click', function() {
+        const signinURL = this.getAttribute('data-signin-url-c');
+    
+        Swal.fire({
+            title: '¿Cancelar?',
+            text: '¿Estás seguro de que quieres cancelar agregar un reporte?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = signinURL;
+            }
+        });
+    });
+</script>
 {% endblock %}

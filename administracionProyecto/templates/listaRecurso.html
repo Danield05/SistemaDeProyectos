@@ -6,9 +6,11 @@
 <h1 class="text-2xl font-bold" style="display: inline-block; font-size: 30px; margin-bottom: 25px;">Recursos</h2>
 <br>
     <div class="flex justify-between" style="width: 25%;"> <!-- Aumenta el ancho del contenedor -->
-        <a href="{% url 'agregarRecurso' id %}" class="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">
-            Agregar Recurso
-        </a>
+        {%if es_administrador%}
+            <a href="{% url 'agregarRecurso' id %}" class="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">
+                Agregar Recurso
+            </a>
+        {%endif%}
         <a href="{% url 'gestionar_proyecto' %}" class="py-2 px-4 bg-purple-500 text-white rounded-md hover:bg-purple-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">
             Volver a Proyectos
         </a>
@@ -21,7 +23,9 @@
                 <th class="border p-1">Disponibilidad</th>
                 <th class="border p-1">Cantidad</th>
                 <th class="border p-1" >Proyecto</th>
-                <th class="border p-1">Opciones</th>
+                {%if es_administrador%}
+                    <th class="border p-1">Opciones</th>
+                {%endif%}
             </tr>
         </thead>
         <tbody>
@@ -38,14 +42,16 @@
                 </td>
                 <td class="border p-1 w-1/10">{{ recurso.cantidad }}</td>
                 <td class="border p-1 w-1/10">{{ recurso.proyecto }}</td>
-                <td class="border p-1 w-1/10">
-                    <div class="flex justify-between">
-                        <a href="{% url 'editarRecurso' recurso.id %}"class="py-2 px-4 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">Editar</a> 
-                        <a href="#" class="w-1/2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50 flex items-center justify-center" style="width: 48%; text-align: center; font-weight: bold;" id="custom-alert-button-e" data-signin-url-e="{% url 'eliminarRecurso' recurso.id %}">
-                            Eliminar
-                        </a>
-                    </div>
-                </td>
+                {% if es_administrador %}
+                    <td class="border p-1 w-1/10">
+                        <div class="flex justify-between">
+                            <a href="{% url 'editarRecurso' recurso.id %}"class="py-2 px-4 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">Editar</a> 
+                            <a href="#" class="w-1/2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50 flex items-center justify-center" style="width: 48%; text-align: center; font-weight: bold;" id="custom-alert-button-e" data-signin-url-e="{% url 'eliminarRecurso' recurso.id %}">
+                                Eliminar
+                            </a>
+                        </div>
+                    </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>

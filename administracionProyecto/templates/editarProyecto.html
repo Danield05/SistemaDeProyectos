@@ -9,56 +9,58 @@
                     <form action="" method="POST" class="w-full max-w-md mx-auto">
                         {% csrf_token %}
                         <div class="mb-4">
-                            <label for="id_nombre" class="block text-gray-300 text-sm font-bold mb-2">Nombre del Proyecto:</label>
-                            <input type="text" name="nombre" id="id_nombre" value="{{ proyecto.nombre }}" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
+                            <label for="nombre" class="block text-gray-300 text-sm font-bold mb-2">Nombre del Proyecto:</label>
+                            <input type="text" name="nombre" id="nombre" value="{{ proyecto.nombre }}" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
                         </div>
                         <div class="mb-4">
-                            <label for="id_objetivo" class="block text-gray-300 text-sm font-bold mb-2">Objetivo:</label>
-                            <input type="text" name="objetivo" id="id_objetivo" value="{{ proyecto.objetivo }}" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
+                            <label for="objetivo" class="block text-gray-300 text-sm font-bold mb-2">Objetivo:</label>
+                            <input type="text" name="objetivo" id="objetivo" value="{{ proyecto.objetivo }}" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark:bg-gray-800 text-gray-600">
                         </div>
                         <div class="mb-4">
-                            <label for="id_prioridad" class="block text-gray-300 text-sm font-bold mb-2">Prioridad:</label>
-                            <select name="prioridad" id="id_prioridad" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
-                                <option value="Alta" {% if proyecto.prioridad == 'Alta' %}selected{% endif %}>Alta</option>
-                                <option value="Media" {% if proyecto.prioridad == 'Media' %}selected{% endif %}>Media</option>
-                                <option value="Baja" {% if proyecto.prioridad == 'Baja' %}selected{% endif %}>Baja</option>
+                            <label for="prioridad" class="block text-gray-300 text-sm font-bold mb-2">Prioridad:</label>
+                            <select name="prioridad" id="prioridad" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
+                                <option value="Alta" >Alta</option>
+                                <option value="Media" >Media</option>
+                                <option value="Baja" >Baja</option>
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="id_estado" class="block text-gray-300 text-sm font-bold mb-2">Estado:</label>
-                            <select name="estado" id="id_estado" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
+                            <label for="estado" class="block text-gray-300 text-sm font-bold mb-2">Estado:</label>
+                            <select name="estado" id="estado" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
                                 {% for choice in estado_choices %}
                                     <option value="{{ choice.0 }}" {% if choice.0 == proyecto.estado %}selected{% endif %}>{{ choice.1 }}</option>
                                 {% endfor %}
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="id_fecha_inicio" class="block text-gray-300 text-sm font-bold mb-2">Fecha de Inicio:</label>
-                            <input type="date" name="fecha_inicio" id="id_fecha_inicio" value="{{ proyecto.fecha_inicio|date:'Y-m-d' }}" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
+                            <label for="fecha_inicio" class="block text-gray-300 text-sm font-bold mb-2">Fecha de Inicio:</label>
+                            <input type="date" name="fecha_inicio" id="fecha_inicio" value="{{ proyecto.fecha_inicio|date:'Y-m-d' }}" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
                         </div>
                         <div class="mb-4">
-                            <label for="id_fecha_fin" class="block text-gray-300 text-sm font-bold mb-2">Fecha de Fin:</label>
-                            <input type="date" name "fecha_fin" id="id_fecha_fin" value="{{ proyecto.fecha_fin|date:'Y-m-d' }}" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
+                            <label for="fecha_fin" class="block text-gray-300 text-sm font-bold mb-2">Fecha de Fin:</label>
+                            <input type="date" name= "fecha_fin" id="fecha_fin" value="{{ proyecto.fecha_fin|date:'Y-m-d' }}" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
                         </div>
                         <div class="mb-4">
-                            <label for="id_presupuesto" class="block text-gray-300 text-sm font-bold mb-2">Presupuesto:</label>
-                            <input type="number" name="presupuesto" id="id_presupuesto" value="{{ proyecto.presupuesto }}" step="0.01" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
+                            <label for="presupuesto" class="block text-gray-300 text-sm font-bold mb-2">Presupuesto:</label>
+                            <input type="number" name="presupuesto" id="presupuesto" value="{{ proyecto.presupuesto }}" step="0.01" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
                         </div>
                         <div class="mb-4">
-                            <label for="id_encargado" class="block text-gray-300 text-sm font-bold mb-2">Encargado:</label>
-                            <select name="encargado" id="id_encargado" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
-                                <option value="">Seleccione un encargado</option>
+                            <label for="encargado" class="block text-gray-300 text-sm font-bold mb-2">Encargado:</label>
+                            <select name="encargado" id="encargado" required class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-opacity-50 dark-bg-gray-800 text-gray-600">
+                                
                                 {% for usuario in usuarios %}
-                                    <option value="{{ usuario.username }}" {% if usuario.username == proyecto.encargado %}selected="selected"{% endif %}>
-                                        {{ usuario.username }}
-                                    </option>
+                                {% if not usuario.is_superuser %}
+                                <option value="{{ usuario.username }}" {% if usuario == proyecto.encargado %}selected{% endif %}>
+                                    {{ usuario.username }}
+                                </option>
+                                {% endif %}
                                 {% endfor %}
                             </select>         
                         </div>
                         <div class="text-center">
                             <div class="flex items-center justify-center space-x-4">
                                 <button type="submit" class="w-1/2 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-opacity-50">Editar</button>
-                                {% comment %} <a href="#" class="w-1/2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50" id="custom-alert-button-c" data-signin-url-c="{% url 'listaProyecto' id %}">Cancelar</a> {% endcomment %}
+                                <a href="#" class="w-1/2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50" id="custom-alert-button-c" data-signin-url-c="{% url 'gestionar_proyecto'  %}">Cancelar</a> 
                             </div>
                         </div>
                     </form>

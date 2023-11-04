@@ -1,64 +1,85 @@
 {% extends 'base.html' %}
 {% block content %}
 <main style="margin-top: 30px; margin-left: 30px;">
-  <table cellpadding="0" cellspacing="0" style="width: 90%; border-collapse: collapse; border: 1px solid #000;">
-    <tr>
-        <td class="text-black text-center border border-black">
-            <h1 class="text-2xl font-bold mb-4">Administración de Proyecto</h1>
-        </td>
-        <td class="text-center border border-black">
-            <div class="mb-4">
-                <p class="block text-gray-600 text-sm font-bold mb-2">Nombre: {{proyecto.nombre}}</p>
-            </div>
-        </td>
-        <td class="text-center border border-black">
-            <div class="mb-4">
-                <p class="block text-gray-600 text-sm font-bold mb-2">Autorización: <span class="{% if proyecto.aprobado %}text-green-500{% else %}text-red-500{% endif %}">{% if proyecto.aprobado %}Aprobado{% else %}Pendiente{% endif %}</span></p>
-            </div>
-        </td>
-        <td class="text-center border border-black">
-            <div class="mb-4">
-                <p class="block text-gray-600 text-sm font-bold mb-2">Objetivo: {{proyecto.objetivo}}</p>
-            </div>
-        </td>
-        <td class="text-center border border-black">
-            <div class="mb-4">
-                <p class="block text-gray-600 text-sm font-bold mb-2">Fecha de Inicio: {{proyecto.fecha_inicio}}</p>
-            </div>
-        </td>
-        <td class="text-center border border-black">
-            <div class="mb-4">
-                <p class="block text-gray-600 text-sm font-bold mb-2">Fecha de Finalización: {{proyecto.fecha_fin}}</p>
-            </div>
-        </td>
-        <td class="text-center border border-black">
-            <div class="mb-4">
-                <p class="block text-gray-600 text-sm font-bold mb-2">Estado del Proyecto: {{proyecto.estado}}</p>
-            </div>
-        </td>
-        <td class="text-center border border-black">
-            <div class="mb-4">
-                <p class="block text-gray-600 text-sm font-bold mb-2">Presupuesto (USD): ${{proyecto.presupuesto}}</p>
-            </div>
-        </td>
-        <td class="text-center border border-black">
-            <div class="mb-4">
-                <p class="block text-gray-600 text-sm font-bold mb-2">Encargado: {{proyecto.encargado}}</p>
-            </div>
-        </td>
-    </tr>
+    <i class="fas fa-briefcase"  style="font-size: 30px; margin-bottom: 25px;"></i>
+    <h1 class="text-2xl font-bold mb-4" style="display: inline-block;">Administración de Proyecto</h1>
+    <table cellpadding="4" cellspacing="6" style="width: 90%; border-collapse: collapse; border: 1px solid #000;">
+        <table style="width: 80%; border-collapse: collapse; margin-top: 20px;">
+            <tr>
+                <td class="text-center border border-black" style="width: 12.5%;">
+                    <div class="mb-4">
+                        <p class="block text-gray-600 text-sm font-bold mb-2 ">Nombre:</p>
+                        <p class="font-bold">{{proyecto.nombre}}</p>
+                    </div>
+                </td>
+                <td class="text-center border border-black" style="width: 12.5%;">
+                    <div class="mb-4">
+                        <p class="block text-gray-600 text-sm font-bold mb-2">Autorización:</p>
+                        <p class="{% if proyecto.aprobado %}text-green-500 font-bold {% else %}text-red-500 font-bold {% endif %}">
+                            {% if proyecto.aprobado %}Aprobado{% else %}Pendiente{% endif %}
+                        </p>
+                    </div>
+                </td>
+                <td class="text-center border border-black" style="width: 12.5%;">
+                    <div class="mb-4">
+                        <p class="block text-gray-600 text-sm font-bold mb-2">Objetivo:</p>
+                        <p class="font-bold"> {{proyecto.objetivo}}</p>
+                    </div>
+                </td>
+                <td class="text-center border border-black" style="width: 12.5%;">
+                    <div class="mb-4">
+                        <p class="block text-gray-600 text-sm font-bold mb-2">Fecha de Inicio:</p>
+                        <p class="font-bold">{{proyecto.fecha_inicio}}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center border border-black" style="width: 12.5%;">
+                    <div class="mb-4">
+                        <p class="block text-gray-600 text-sm font-bold mb-2">Fecha de Finalización:</p>
+                        <p class="font-bold">{{proyecto.fecha_fin}}</p>
+                    </div>
+                </td>
+                <td class="text-center border border-black" style="width: 12.5%;">
+                    <div class="mb-4">
+                        <p class="block text-gray-600 text-sm font-bold mb-2">Estado del Proyecto:</p>
+                        <p class="font-bold">{{proyecto.estado}}</p>
+                    </div>
+                </td>
+                <td class="text-center border border-black" style="width: 12.5%;">
+                    <div class="mb-4">
+                        <p class="block text-gray-600 text-sm font-bold mb-2">Presupuesto (USD):</p>
+                        <p class="font-bold">${{proyecto.presupuesto}}</p>
+                    </div>
+                </td>
+                <td class="text-center border border-black" style="width: 12.5%;">
+                    <div class="mb-4">
+                        <p class="block text-gray-600 text-sm font-bold mb-2">Encargado:</p>
+                        <p class="font-bold">{{proyecto.encargado}}</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        
+        
 </table>
 <div style="margin-top: 30px;" class="flex justify-between space-x-4">
     <div class="flex">
-        <a href="{% url 'listaTarea' id %}" class="w-20 h-8 py-1 px-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-opacity-50 font-bold text-center" >Tareas</a>
-        <a href="{% url 'listaRecurso' id %}" class="w-20 h-8 py-1 px-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 focus:outline-none focus:ring focus:ring-opacity-50 font-bold text-center" >Recursos</a>
+        {% if not es_inversor %}
+            <a href="{% url 'listaTarea' id %}" class="w-20 h-8 py-1 px-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-opacity-50 font-bold text-center" >Tareas</a>&nbsp;
+            <a href="{% url 'listaRecurso' id %}" class="w-20 h-8 py-1 px-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 focus:outline-none focus:ring focus:ring-opacity-50 font-bold text-center" >Recursos</a>
+        {%endif%}
     </div>
-    {% if not proyecto.aprobado %}
-    <form method="POST" action="{% url 'aprobarProyecto' proyecto.id %}" class="flex-1">
-        {% csrf_token %}
-        <button type="submit" class="w-20 h-8 py-1 px-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-opacity-50 font-bold text-center">Aprobar</button>
-    </form>
+    {% if es_administrador %}
+        {% if not proyecto.aprobado %}
+        <form method="POST" action="{% url 'aprobarProyecto' proyecto.id %}" class="flex-1">
+            {% csrf_token %}
+            <button type="submit" class="w-20 h-8 py-1 px-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-opacity-50 font-bold text-center">Aprobar</button>
+        </form>
+        {% endif %}
+    
     {% endif %}
+    <a href="{% url 'listaReporte' id %}"  class="w-40 h-8 py-1 px-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-opacity-50 font-bold text-center" style="margin-right: 20%;">Ver Reportes</a>
 </div>
 
 

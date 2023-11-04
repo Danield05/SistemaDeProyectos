@@ -18,9 +18,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.TextField(max_length=500, blank=True)
     birth_date = models.DateField(null=True, blank=True)
-    dui = models.CharField(max_length=9, blank=True)
+    dui = models.CharField(max_length=12, blank=True)
     pais = models.CharField(max_length=30, blank=True)
-    nit = models.CharField(max_length=9, blank=True)
+    nit = models.CharField(max_length=20, blank=True)
     departamento = models.CharField(max_length=30, blank=True)
     genero = models.CharField(max_length=30, blank=True)
  

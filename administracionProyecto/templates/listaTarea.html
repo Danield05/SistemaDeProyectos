@@ -6,9 +6,11 @@
     <h1 class="text-2xl font-bold" style="display: inline-block; font-size: 30px; margin-bottom: 25px;">Tareas</h1>
     <br>
     <div class="flex justify-between" style="width: 23%;">
+        {% if not es_empleado_formulador_proyectos %}
         <a href="{% url 'crearTarea' id %}" class="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">
             Crear Tarea
         </a>
+        {% endif %}
         <a href="{% url 'gestionar_proyecto'  %}" class="py-2 px-4 bg-purple-500 text-white rounded-md hover:bg-purple-600 focus:outline-none focus:ring focus:ring-opacity-50 " style="width: 48%; text-align: center; font-weight: bold;">
             Volver a Proyectos
         </a>
@@ -25,7 +27,9 @@
                 <th class="border p-1">Fecha de fin</th>
                 <th class="border p-1">Encargado</th>
                 <th class="border p-1">Proyecto</th>
+                {% if not es_empleado_formulador_proyectos %}
                 <th class="border p-1">Opciones</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -38,14 +42,16 @@
                 <td class="border p-1 w-1/10">{{ tarea.fecha_fin }}</td>
                 <td class="border p-1 w-1/10">{{ tarea.encargado }}</td>
                 <td class="border p-1 w-1/10">{{ tarea.proyecto }}</td>
-                <td class="border p-1 w-1/10">
-                    <div class="flex justify-between">
-                        <a href="{% url 'editarTarea' tarea.id %}" class="py-2 px-4 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">Editar</a>
-                        <a href="#" class="w-1/2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50 flex items-center justify-center" style="width: 48%; text-align: center; font-weight: bold;" id="custom-alert-button-el" data-signin-url-el="{% url 'eliminarTarea' tarea.id %}">
-                            Eliminar
-                        </a>
-                    </div>
-                </td>
+                {% if not es_empleado_formulador_proyectos %}
+                    <td class="border p-1 w-1/10">
+                        <div class="flex justify-between">
+                            <a href="{% url 'editarTarea' tarea.id %}" class="py-2 px-4 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">Editar</a>
+                            <a href="#" class="w-1/2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50 flex items-center justify-center" style="width: 48%; text-align: center; font-weight: bold;" id="custom-alert-button-el" data-signin-url-el="{% url 'eliminarTarea' tarea.id %}">
+                                Eliminar
+                            </a>
+                        </div>
+                    </td>
+               {% endif %}
             </tr>
             {% endfor %}
         </tbody>

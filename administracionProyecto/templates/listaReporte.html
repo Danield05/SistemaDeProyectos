@@ -1,38 +1,66 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Reportes</h2>
-<a href="{% url 'crearReporte' id %}" class="btn btn-primary">Crear Reporte</a> 
-<a href="{% url 'proyecto' id %}" class="btn btn-primary">Volver</a>
-<table border ="2">
-    <thead>
-        <tr>
-            <th>Titulo</th>
-            <th>Descripcion</th>
-            <th>Tipo</th>
-            <th>Proyecto</th>
-            {% if not es_inversor %}
-            <th>Opciones</th>
-            {% endif %}
-        </tr>
-    </thead>
-    <tbody>
-        {% for reporte in reportes %}
-        <tr>
-            <td>{{ reporte.titulo }}</td>
-            <td>{{ reporte.descripcion }}</td>
-            <td>
-                {{ reporte.tipo }}
-            </td>
-            <td>{{ reporte.proyecto }}</td>
-            <td>
+<div style="margin-left: 40px; margin-top: 30px;">
+    <i class="fas fa-file" style="font-size: 30px; margin-bottom: 25px;"></i>
+    <h1 class="text-2xl font-bold" style="display: inline-block; font-size: 30px; margin-bottom: 25px;">Reportes</h1>
+    <div class="flex justify-between" style="width: 23%;">
+        <a href="{% url 'crearReporte' id %}" class="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">Crear Reporte</a>
+        <a href="{% url 'proyecto' id %}" class="py-2 px-4 bg-purple-500 text-white rounded-md hover:bg-purple-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">Volver</a>
+    </div>
+        <table style="width: 75%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+            <tr class="bg-gray-800 text-white">
+                <th class="border p-1">Titulo</th>
+                <th class="border p-1">Descripcion</th>
+                <th class="border p-1">Tipo</th>
+                <th class="border p-1">Proyecto</th>
                 {% if not es_inversor %}
-                <a href="{% url 'editarReporte' reporte.id %}">Editar</a> 
-                <a href="{% url 'eliminarReporte' reporte.id %}">Eliminar</a> 
+                <th class="border p-1">Opciones</th>
                 {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reporte in reportes %}
+            <tr class="border">
+                <td class="border p-1" style="font-weight: bold;">{{ reporte.titulo }}</td>
+                <td class="border p-1">{{ reporte.descripcion }}</td>
+                <td class="border p-1">{{ reporte.tipo }}</td>
+                <td class="border p-1">{{ reporte.proyecto }}</td>
+                {% if not es_inversor %}
+                    <td class="border p-1">
+                        <div class="flex justify-between">
+                            <a href="{% url 'editarReporte' reporte.id %}" class="py-2 px-4 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;">Editar</a>
+                            <a href="#" class="py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-opacity-50" style="width: 48%; text-align: center; font-weight: bold;" id="custom-alert-button-el" data-signin-url-el="{% url 'eliminarReporte' reporte.id %}">Eliminar</a>
+                            {% endif %}
+                        </div>
+                    </td>
+                {% endfor %}
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.querySelectorAll('[id^="custom-alert-button-el"]').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const reporteID = this.getAttribute('data-signin-url-el');
+            Swal.fire({
+                title: '¿Eliminar?',
+                text: '¿Estás seguro de que quieres eliminar este Reporte?',
+                icon: 'warning',
+                confirmButtonColor: '#60A5FA',
+                cancelButtonColor: '#EF4444',
+                showCancelButton: true,
+                confirmButtonText: 'Si, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = reporteID;
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}
