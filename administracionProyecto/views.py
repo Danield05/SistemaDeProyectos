@@ -55,19 +55,19 @@ def listaTarea(request, id):
     'es_supervisor': request.user.groups.filter(name="Supervisor").exists(),
     })
 
-#administrador y supervisor
-@login_required
-@administrador_o_supervisor_o_formulador_requerido
-#Lista tarea
-def listaTarea(request, id):
-    proyecto = Proyecto.objects.get(id=id)
-    tarea = Tarea.objects.filter(proyecto=proyecto)
-    return render(request, 'listaTarea.html',{
-        'id':id,
-        'tarea': tarea,
-        'es_empleado_formulador_proyectos': request.user.groups.filter(name="Empleado Formulador de proyectos").exists(),
-        'es_supervisor': request.user.groups.filter(name="Supervisor").exists(),
-    })
+# #administrador y supervisor
+# @login_required
+# @administrador_o_supervisor_o_formulador_requerido
+# #Lista tarea
+# def listaTarea(request, id):
+#     proyecto = Proyecto.objects.get(id=id)
+#     tarea = Tarea.objects.filter(proyecto=proyecto)
+#     return render(request, 'listaTarea.html',{
+#         'id':id,
+#         'tarea': tarea,
+#         'es_empleado_formulador_proyectos': request.user.groups.filter(name="Empleado Formulador de proyectos").exists(),
+#         'es_supervisor': request.user.groups.filter(name="Supervisor").exists(),
+#     })
 
 @login_required
 @administrador_o_supervisor_requerido
