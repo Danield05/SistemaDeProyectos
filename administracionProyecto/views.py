@@ -66,6 +66,7 @@ def listaTarea(request, id):
         'id':id,
         'tarea': tarea,
         'es_empleado_formulador_proyectos': request.user.groups.filter(name="Empleado Formulador de proyectos").exists(), 
+        'es_supervisor': request.user.groups.filter(name="Supervisor").exists(),
     })
 
 @login_required
