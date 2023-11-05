@@ -29,7 +29,7 @@ STATICFILES_DIRS = [
 SECRET_KEY = 'django-insecure-^@_=cu2q#e*b7(vk=_!3w_pubvh82gho9v2)c$l3er$9*crd25'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 #Modelo de usuario personalizado
@@ -63,6 +63,7 @@ MIDDLEWARE = [
 
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #whitenoise
     
 
 ]
@@ -165,3 +166,12 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'camperitos.sv@gmail.com'
 EMAIL_HOST_PASSWORD = 'nahtkdgoeztsjqgm'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_TMP = os.path.join(BASE_DIR, 'static')
+
+
+os.makedirs(STATIC_TMP, exist_ok=True)
+os.makedirs(STATIC_ROOT, exist_ok=True)
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

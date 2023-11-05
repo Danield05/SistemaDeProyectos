@@ -19,7 +19,8 @@ from django.shortcuts import redirect
 from django.urls import path,include
 from login import views as login_views
 from administracionProyecto import views as administracionProyecto_views
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,4 +46,4 @@ urlpatterns = [
     path('listaReporte/editarReporte/<int:id>/', administracionProyecto_views.editarReporte, name = 'editarReporte'),
     path('listaReporte/eliminarReporte/<int:id>/', administracionProyecto_views.eliminarReporte, name = 'eliminarReporte'),
     path('listaReporte/crearReporte/<int:id>/', administracionProyecto_views.crearReporte, name = 'crearReporte'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
